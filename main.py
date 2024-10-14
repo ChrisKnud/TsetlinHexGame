@@ -5,8 +5,7 @@ from scipy.sparse import csr_matrix
 from GraphTsetlinMachine.tm import MultiClassGraphTsetlinMachine
 from time import time
 import argparse
-
-from format import add_hex_edges
+from format import get_number_of_edges, get_node_type
 
 # Hex settings
 BOARD_WIDTH = 3
@@ -59,19 +58,10 @@ for graph_id in range(args.number_of_examples):
 graphs_train.prepare_node_configuration()
 
 for graph_id in range(args.number_of_examples):
+    print(f"\n\nGraph: {graph_id}")
     for node_id in range(graphs_train.number_of_graph_nodes[graph_id]):
-        number_of_edges = 0
-
-        # Give node two edges if it is one of the corners of the board
-        if node_id == 0 or node_id == graphs_train.number_of_graph_nodes[graph_id]:
-            number_of_edges = 2
-        elif node_id == BOARD_WIDTH - 1 or  node_id == graphs_train.number_of_graph_nodes[graph_id] - BOARD_WIDTH:
-            number_of_edges = 3
-        elif node_id % BOARD_WIDTH - 1 == 1 or node_id % BOARD_WIDTH - 1 == 0:
-            number_of_edges = 4
-        elif node_id % BOARD_WIDTH != 0 or node_id % BOARD_WIDTH != 1:
-            number_of_edges = 6
-
+        number_of_edges = get_number_of_edges(node_id, BOARD_WIDTH)
+        print(f"Node ({node_id}) edges: {number_of_edges}")
         graphs_train.add_graph_node(graph_id, node_id, number_of_edges)
 
 graphs_train.prepare_edge_configuration()
@@ -79,47 +69,41 @@ graphs_train.prepare_edge_configuration()
 Y_train = np.empty(args.number_of_examples, dtype=np.uint32)
 
 for graph_id in range(args.number_of_examples):
-    for node_id in range(graphs_train.number_of_graph_nodes[graph_id]-1):
+    for node_id in range(graphs_train.number_of_graph_nodes[graph_id]):
+        node_type = get_node_type(node_id, BOARD_WIDTH)
 
-        if node_id == 0:
-            connected_nodes = [node_id + 1, node_id + BOARD_WIDTH]
-            add_hex_edges(graphs_train, graph_id, node_id, connected_nodes)
-            #for destination_node_id in connected_nodes:
-            #    graphs_train.add_graph_node_edge(graph_id, node_id, destination_node_id, 'Connected')
-            continue
+        match node_type:
+            case 'TopLeft':
+                connected_nodes = [node_id + 1, node_id + BOARD_WIDTH]
+            case 'TopRight':
+                connected_nodes = [node_id - 1, node_id + BOARD_WIDTH - 1, node_id + BOARD_WIDTH]
+            case 'BottomLeft':
+                connected_nodes = [node_id + 1, node_id - BOARD_WIDTH - 1, node_id - BOARD_WIDTH]
+            case 'BottomRight':
+                connected_nodes = [node_id - 1, node_id - BOARD_WIDTH]
+            case '1stRow':
+                connected_nodes = [node_id - 1, node_id + 1, node_id + BOARD_WIDTH - 1, node_id + BOARD_WIDTH]
+            case 'LastRow':
+                connected_nodes = [node_id - 1, node_id + 1, node_id - BOARD_WIDTH + 1, node_id - BOARD_WIDTH]
+            case '1stColumn':
+                connected_nodes = [node_id + 1, node_id + BOARD_WIDTH, node_id - BOARD_WIDTH + 1, node_id - BOARD_WIDTH]
+            case 'LastColumn':
+                connected_nodes = [node_id - 1, node_id - BOARD_WIDTH, node_id + BOARD_WIDTH - 1, node_id + BOARD_WIDTH]
+            case 'Default':
+                connected_nodes = [node_id + 1, node_id - 1, node_id - BOARD_WIDTH, node_id - BOARD_WIDTH + 1, node_id + BOARD_WIDTH, node_id + BOARD_WIDTH + 1]
+            case _:
+                connected_nodes = None
 
-        if node_id == node_id == graphs_train.number_of_graph_nodes[graph_id]:
-            connected_nodes = [node_id - 1, node_id - BOARD_WIDTH]
+        if connected_nodes is not None:
+            print(f"Node type: {node_type}")
             for destination_node_id in connected_nodes:
+                print(f"Adding edge ({node_id}): {destination_node_id}")
                 graphs_train.add_graph_node_edge(graph_id, node_id, destination_node_id, 'Connected')
-            continue
-        if node_id == BOARD_WIDTH - 1:
-            connected_nodes = [node_id - 1, node_id + BOARD_WIDTH - 1, node_id + BOARD_WIDTH]
-            for destination_node_id in connected_nodes:
-                graphs_train.add_graph_node_edge(graph_id, node_id, destination_node_id, 'Connected')
-            continue
-        if node_id == node_id == graphs_train.number_of_graph_nodes[graph_id] - BOARD_WIDTH:
-            connected_nodes = [node_id + 1, node_id - BOARD_WIDTH - 1, node_id - BOARD_WIDTH]
-            for destination_node_id in connected_nodes:
-                graphs_train.add_graph_node_edge(graph_id, node_id, destination_node_id, 'Connected')
-            continue
-        if node_id % BOARD_WIDTH - 1 == 1:
-            connected_nodes = [node_id - BOARD_WIDTH, node_id - BOARD_WIDTH - 1, node_id + 1, node_id + BOARD_WIDTH]
-            for destination_node_id in connected_nodes:
-                graphs_train.add_graph_node_edge(graph_id, node_id, destination_node_id, 'Connected')
-            continue
+        else:
+            print("Connected nodes is 1.")
+            exit(-1)
 
-        if node_id % BOARD_WIDTH - 1 == 0:
-            connected_nodes = [node_id - BOARD_WIDTH, node_id - 1, node_id + BOARD_WIDTH - 1, node_id + BOARD_WIDTH]
-            for destination_node_id in connected_nodes:
-                graphs_train.add_graph_node_edge(graph_id, node_id, destination_node_id, 'Connected')
-            continue
 
-        if node_id % BOARD_WIDTH != 0 or node_id % BOARD_WIDTH != 1:
-            connected_nodes = [node_id + 1, node_id - 1, node_id - BOARD_WIDTH, node_id - BOARD_WIDTH - 1,  node_id + BOARD_WIDTH - 1, node_id + BOARD_WIDTH]
-            for destination_node_id in connected_nodes:
-                graphs_train.add_graph_node_edge(graph_id, node_id, destination_node_id, 'Connected')
-            continue
     # if black win
     Y_train[graph_id] = 0
 
