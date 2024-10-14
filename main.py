@@ -5,11 +5,17 @@ from scipy.sparse import csr_matrix
 from GraphTsetlinMachine.tm import MultiClassGraphTsetlinMachine
 from time import time
 import argparse
+
+from data import x_train
 from format import get_number_of_edges, get_node_type
 
 # Hex settings
 BOARD_WIDTH = 3
-SYMBOLS = ['B', 'W']
+
+# B = Black
+# W = White
+# E = Empty
+SYMBOLS = ['B', 'W', 'E']
 
 
 # Graph settings
@@ -26,7 +32,7 @@ def default_args(**kwargs):
     parser.add_argument("--message-bits", default=2, type=int)
     parser.add_argument('--double-hashing', dest='double_hashing', default=False, action='store_true')
     parser.add_argument("--noise", default=0.01, type=float)
-    parser.add_argument("--number-of-examples", default=10, type=int)
+    parser.add_argument("--number-of-examples", default=6, type=int)
     parser.add_argument("--number-of-classes", default=3, type=int)
     parser.add_argument("--max-sequence-length", default=10, type=int)
     parser.add_argument("--max-included-literals", default=4, type=int)
@@ -69,6 +75,7 @@ graphs_train.prepare_edge_configuration()
 Y_train = np.empty(args.number_of_examples, dtype=np.uint32)
 
 for graph_id in range(args.number_of_examples):
+    print(f"\n\nGraph: {graph_id}")
     for node_id in range(graphs_train.number_of_graph_nodes[graph_id]):
         node_type = get_node_type(node_id, BOARD_WIDTH)
 
@@ -98,24 +105,42 @@ for graph_id in range(args.number_of_examples):
             print(f"Node type: {node_type}")
             for destination_node_id in connected_nodes:
                 print(f"Adding edge ({node_id}): {destination_node_id}")
-                graphs_train.add_graph_node_edge(graph_id, node_id, destination_node_id, 'Connected')
+                if x_train[graph_id]['board'][node_id] == x_train[graph_id]['board'][destination_node_id]:
+                    print(f"Winner node: {x_train[graph_id]['board'][node_id]}")
+                    print(f"Node {node_id} and {destination_node_id} Connected")
+                    graphs_train.add_graph_node_edge(graph_id, node_id, destination_node_id, 'Connected')
+                else:
+                    print(f"Node {node_id} and {destination_node_id} NOT connected")
+                    graphs_train.add_graph_node_edge(graph_id, node_id, destination_node_id, 'NOT Connected')
         else:
             print("Connected nodes is 1.")
             exit(-1)
 
 
-    # if black win
-    Y_train[graph_id] = 0
+    # 0 if black wins, 1 if white wins
+    Y_train[graph_id] = 0 if x_train[graph_id]['winner'] == 'B' else 1
+
+    print("Y train: " + str(Y_train[graph_id]))
 
     node_id = np.random.randint(Y_train[graph_id], graphs_train.number_of_graph_nodes[graph_id])
 
     for node_pos in range(Y_train[graph_id] + 1):
-        graphs_train.add_graph_node_property(graph_id, node_id - node_pos, 'B')
+        if Y_train[graph_id] == 0:
+            graphs_train.add_graph_node_property(graph_id, node_id - node_pos, 'B')
+        else:
+            graphs_train.add_graph_node_property(graph_id, node_id - node_pos, 'W')
 
     if np.random.rand() <= args.noise:
         Y_train[graph_id] = np.random.choice(np.setdiff1d(np.arange(args.number_of_classes), [Y_train[graph_id]]))
 
 graphs_train.encode()
+
+
+
+
+
+
+
 
 
 
