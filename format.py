@@ -1,4 +1,5 @@
 import numpy as np
+from GraphTsetlinMachine.graphs import Graphs
 
 
 def add_hex_edges(graphs, graph_id, node_id, destination_node_ids):
@@ -64,6 +65,7 @@ def get_node_type(node_id, board_width):
     
     
 def init_graph(graphs, number_of_examples, number_of_classes, noise, board_width, data):
+
     for graph_id in range(number_of_examples):
         graphs.set_number_of_graph_nodes(graph_id, board_width * board_width)
 
@@ -142,3 +144,5 @@ def init_graph(graphs, number_of_examples, number_of_classes, noise, board_width
             Y_train[graph_id] = np.random.choice(np.setdiff1d(np.arange(number_of_classes), [Y_train[graph_id]]))
 
     graphs.encode()
+
+    return Y_train

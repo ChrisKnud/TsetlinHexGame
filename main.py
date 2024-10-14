@@ -1,13 +1,13 @@
-from GraphTsetlinMachine.graphs import Graphs
 import numpy as np
+from GraphTsetlinMachine.graphs import Graphs
 from fontTools.svgLib.path.parser import BOOL_RE
 from scipy.sparse import csr_matrix
 from GraphTsetlinMachine.tm import MultiClassGraphTsetlinMachine
 from time import time
 import argparse
 
-from data import x_train
-from format import get_number_of_edges, get_node_type
+from data import x_train, x_test
+from format import get_number_of_edges, get_node_type, init_graph
 
 # Hex settings
 BOARD_WIDTH = 3
@@ -55,135 +55,28 @@ graphs_train = Graphs(
     symbols=SYMBOLS,
     hypervector_size=args.hypervector_size,
     hypervector_bits=args.hypervector_bits,
-    double_hashing=args.double_hashing
+    double_hashing = args.double_hashing
 )
 
-for graph_id in range(args.number_of_examples):
-    graphs_train.set_number_of_graph_nodes(graph_id, BOARD_WIDTH * BOARD_WIDTH)
-
-graphs_train.prepare_node_configuration()
-
-for graph_id in range(args.number_of_examples):
-    print(f"\n\nGraph: {graph_id}")
-    for node_id in range(graphs_train.number_of_graph_nodes[graph_id]):
-        number_of_edges = get_number_of_edges(node_id, BOARD_WIDTH)
-        print(f"Node ({node_id}) edges: {number_of_edges}")
-        graphs_train.add_graph_node(graph_id, node_id, number_of_edges)
-
-graphs_train.prepare_edge_configuration()
-
-Y_train = np.empty(args.number_of_examples, dtype=np.uint32)
-
-for graph_id in range(args.number_of_examples):
-    print(f"\n\nGraph: {graph_id}")
-    for node_id in range(graphs_train.number_of_graph_nodes[graph_id]):
-        node_type = get_node_type(node_id, BOARD_WIDTH)
-
-        match node_type:
-            case 'TopLeft':
-                connected_nodes = [node_id + 1, node_id + BOARD_WIDTH]
-            case 'TopRight':
-                connected_nodes = [node_id - 1, node_id + BOARD_WIDTH - 1, node_id + BOARD_WIDTH]
-            case 'BottomLeft':
-                connected_nodes = [node_id + 1, node_id - BOARD_WIDTH - 1, node_id - BOARD_WIDTH]
-            case 'BottomRight':
-                connected_nodes = [node_id - 1, node_id - BOARD_WIDTH]
-            case '1stRow':
-                connected_nodes = [node_id - 1, node_id + 1, node_id + BOARD_WIDTH - 1, node_id + BOARD_WIDTH]
-            case 'LastRow':
-                connected_nodes = [node_id - 1, node_id + 1, node_id - BOARD_WIDTH + 1, node_id - BOARD_WIDTH]
-            case '1stColumn':
-                connected_nodes = [node_id + 1, node_id + BOARD_WIDTH, node_id - BOARD_WIDTH + 1, node_id - BOARD_WIDTH]
-            case 'LastColumn':
-                connected_nodes = [node_id - 1, node_id - BOARD_WIDTH, node_id + BOARD_WIDTH - 1, node_id + BOARD_WIDTH]
-            case 'Default':
-                connected_nodes = [node_id + 1, node_id - 1, node_id - BOARD_WIDTH, node_id - BOARD_WIDTH + 1, node_id + BOARD_WIDTH, node_id + BOARD_WIDTH + 1]
-            case _:
-                connected_nodes = None
-
-        if connected_nodes is not None:
-            print(f"Node type: {node_type}")
-            for destination_node_id in connected_nodes:
-                print(f"Adding edge ({node_id}): {destination_node_id}")
-                if x_train[graph_id]['board'][node_id] == x_train[graph_id]['board'][destination_node_id]:
-                    print(f"Winner node: {x_train[graph_id]['board'][node_id]}")
-                    print(f"Node {node_id} and {destination_node_id} Connected")
-                    graphs_train.add_graph_node_edge(graph_id, node_id, destination_node_id, 'Connected')
-                else:
-                    print(f"Node {node_id} and {destination_node_id} NOT connected")
-                    graphs_train.add_graph_node_edge(graph_id, node_id, destination_node_id, 'NOT Connected')
-        else:
-            print("Connected nodes is 1.")
-            exit(-1)
-
-
-    # 0 if black wins, 1 if white wins
-    Y_train[graph_id] = 0 if x_train[graph_id]['winner'] == 'B' else 1
-
-    print("Y train: " + str(Y_train[graph_id]))
-
-    node_id = np.random.randint(Y_train[graph_id], graphs_train.number_of_graph_nodes[graph_id])
-
-    for node_pos in range(Y_train[graph_id] + 1):
-        if Y_train[graph_id] == 0:
-            graphs_train.add_graph_node_property(graph_id, node_id - node_pos, 'B')
-        else:
-            graphs_train.add_graph_node_property(graph_id, node_id - node_pos, 'W')
-
-    if np.random.rand() <= args.noise:
-        Y_train[graph_id] = np.random.choice(np.setdiff1d(np.arange(args.number_of_classes), [Y_train[graph_id]]))
-
-graphs_train.encode()
-
-
-
-
-
-
-
-
-
-
-
-
-"""
-
-# Create test data
-
-print("Creating testing data")
+Y_train = init_graph(
+    graphs=graphs_train,
+    number_of_examples=args.number_of_examples,
+    number_of_classes=args.number_of_classes,
+    noise=args.noise,
+    board_width=BOARD_WIDTH,
+    data=x_train
+)
 
 graphs_test = Graphs(args.number_of_examples, init_with=graphs_train)
-for graph_id in range(args.number_of_examples):
-    graphs_test.set_number_of_graph_nodes(graph_id, np.random.randint(args.number_of_classes, args.max_sequence_length+1))
 
-graphs_test.prepare_node_configuration()
-
-for graph_id in range(args.number_of_examples):
-    for node_id in range(graphs_test.number_of_graph_nodes[graph_id]):
-        number_of_edges = 1 if node_id > 0 and node_id < graphs_test.number_of_graph_nodes[graph_id]-1 else 0
-        graphs_test.add_graph_node(graph_id, node_id, number_of_edges)
-
-graphs_test.prepare_edge_configuration()
-
-Y_test = np.empty(args.number_of_examples, dtype=np.uint32)
-for graph_id in range(args.number_of_examples):
-    for node_id in range(graphs_test.number_of_graph_nodes[graph_id]):
-        if node_id > 0:
-            destination_node_id = node_id - 1
-            edge_type = "Left"
-            graphs_test.add_graph_node_edge(graph_id, node_id, destination_node_id, edge_type)
-
-        if node_id < graphs_test.number_of_graph_nodes[graph_id]-1:
-            destination_node_id = node_id + 1
-            edge_type = "Right"
-            graphs_test.add_graph_node_edge(graph_id, node_id, destination_node_id, edge_type)
-
-    Y_test[graph_id] = np.random.randint(args.number_of_classes)
-    node_id = np.random.randint(Y_test[graph_id], graphs_test.number_of_graph_nodes[graph_id])
-    for node_pos in range(Y_test[graph_id] + 1):
-        graphs_test.add_graph_node_property(graph_id, node_id - node_pos, 'A')
-
-graphs_test.encode()
+Y_test = init_graph(
+    graphs=graphs_test,
+    number_of_examples=args.number_of_examples,
+    number_of_classes=args.number_of_classes,
+    noise=args.noise,
+    board_width=BOARD_WIDTH,
+    data=x_test
+)
 
 tm = MultiClassGraphTsetlinMachine(
     args.number_of_clauses,
@@ -233,4 +126,3 @@ for i in range(tm.number_of_clauses):
 print(graphs_test.hypervectors)
 print(tm.hypervectors)
 print(graphs_test.edge_type_id)
-"""
