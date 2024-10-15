@@ -1,13 +1,11 @@
-import numpy as np
-from GraphTsetlinMachine.graphs import Graphs
-from fontTools.svgLib.path.parser import BOOL_RE
-from scipy.sparse import csr_matrix
-from GraphTsetlinMachine.tm import MultiClassGraphTsetlinMachine
-from time import time
 import argparse
+import os.path
+from time import time
+from datetime import datetime
+from GraphTsetlinMachine.graphs import Graphs
+from GraphTsetlinMachine.tm import MultiClassGraphTsetlinMachine
 
-from data import x_train, x_test
-from format import get_number_of_edges, get_node_type, init_graph
+from format import init_graph, train_data_from_file, log_result
 
 # Hex settings
 BOARD_WIDTH = 3
@@ -16,12 +14,18 @@ BOARD_WIDTH = 3
 # W = White
 # E = Empty
 SYMBOLS = ['B', 'W', 'E']
+train_path = os.path.join('.', 'data', 'hex_train.json')
+test_path = os.path.join('.', 'data', 'hex_test.json')
 
+x_train = train_data_from_file(train_path)['result']
+x_test = train_data_from_file(test_path)['result']
+training_log_path = os.path.join('.', 'log', 'train', f'train-{datetime.now()}.log')
+eval_log_path = os.path.join('.', 'log', 'eval', f'eval-{datetime.now()}.log')
 
 # Graph settings
 def default_args(**kwargs):
     parser = argparse.ArgumentParser()
-    parser.add_argument("--epochs", default=25, type=int)
+    parser.add_argument("--epochs", default=100, type=int)
     parser.add_argument("--number-of-clauses", default=60, type=int)
     parser.add_argument("--T", default=200, type=int)
     parser.add_argument("--s", default=1.0, type=float)
@@ -90,6 +94,8 @@ tm = MultiClassGraphTsetlinMachine(
     block=(128,1,1)
 )
 
+log_result(training_log_path, "#    result train    result test    train time    test time")
+
 for i in range(args.epochs):
     start_training = time()
     tm.fit(graphs_train, Y_train, epochs=1, incremental=True)
@@ -101,9 +107,23 @@ for i in range(args.epochs):
 
     result_train = 100*(tm.predict(graphs_train) == Y_train).mean()
 
+    log_result(training_log_path,
+               "%d    %.2f    %.2f    %.2f    %.2f" % (i, result_train, result_test, stop_training - start_training, stop_testing - start_testing)
+    )
+
     print("%d %.2f %.2f %.2f %.2f" % (i, result_train, result_test, stop_training-start_training, stop_testing-start_testing))
 
+    print("\n\n")
+    log_result(training_log_path, f"Train prediction: {tm.predict(graphs_train)}. True value: {Y_train}\n" +
+                                  f"Test prediction: {tm.predict(graphs_test)}. True value: {Y_test}\n"
+    )
+
+    print(f"Train prediction: {tm.predict(graphs_train)}. True value: {Y_train}")
+    print(f"Test prediction: {tm.predict(graphs_test)}. True value: {Y_test}")
+    print("\n\n")
+
 weights = tm.get_state()[1].reshape(2, -1)
+
 for i in range(tm.number_of_clauses):
         print("Clause #%d W:(%d %d)" % (i, weights[0,i], weights[1,i]), end=' ')
         l = []

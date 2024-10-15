@@ -1,6 +1,6 @@
+import json
 import numpy as np
 from GraphTsetlinMachine.graphs import Graphs
-
 
 def add_hex_edges(graphs, graph_id, node_id, destination_node_ids):
     for id in destination_node_ids:
@@ -146,3 +146,14 @@ def init_graph(graphs, number_of_examples, number_of_classes, noise, board_width
     graphs.encode()
 
     return Y_train
+
+
+def train_data_from_file(path):
+    with open(path, "r") as f:
+        data = json.load(f)
+    return data
+
+
+def log_result(path, result):
+    with open(path, "a") as f:
+        f.write(result + "\n")

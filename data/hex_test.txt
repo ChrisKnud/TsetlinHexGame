@@ -1,0 +1,1134 @@
+Player 0 wins!
+E E E E E B W E W E W
+E E W B E B B E E W B
+W E E E E B E B W W E
+E E E E B B W E E E E
+E W E E E B B B E E E
+E W E W E E E B B E W
+E E W E E W E E B E E
+W E E E B E W E B E E
+E W E W E E B W B E E
+B W E E E E E E B W E
+E E E E E E B B E E E
+[!?!?!?]
+Player 1 wins!
+E B E E E E W B E E E
+E E E E B E E B E E E
+B E B E B E E W B E E
+E E E W E E E E E E E
+E B E E E E B E E E E
+B B W E E E B W W W W
+E E E E E E W B E B E
+E B E E E W E B B E E
+E B E B W E W E E W E
+W E E W W E B E E W W
+W W W W E E B W B E E
+[!?!?!?]
+Player 0 wins!
+E W E E E E W B E E W
+E E E E W W B E E E W
+E E B E B E B E E E E
+E W B E B E B B W E E
+E B E E E E E B E W W
+E E B E W E B W W E E
+E E E B E B B E W E E
+E E E E W E B W E E E
+B E E B W E B E E E E
+W E E E B W B E E W E
+W W E E E B E E E E E
+[!?!?!?]
+Player 1 wins!
+W W W E E E E E E E E
+E E B E E E B E B B E
+B E B E E W W W W W W
+E E E W E W E E B E W
+E W E E W E W E E E E
+B E E W E E E E E B E
+E E W B E E E W E W B
+W W E B B W W B E E B
+E E B E E E E E E E E
+E E E E B E E B E E E
+B B E E E B E B E E B
+[!?!?!?]
+Player 0 wins!
+W E W E E W E E E E B
+E E E E W E E W E B B
+E E W E E B E E E E B
+W E W E E W B W E B E
+B E B E E W E E B E E
+E E E E E E E E B E E
+W W E E E W E E B E E
+E E E E B B E W B W B
+E E E E W E W B B E E
+E E E E E E E B E E E
+E E E E E E E B E W E
+[!?!?!?]
+Player 1 wins!
+B B E E E E E W E W E
+B E B B E E E E E W W
+W W E B E E B E W E E
+B W E E W W W W E E E
+B E E W E E E E W W E
+B B W E E E E E E E E
+E W E E E E W B B E W
+E W E W E W B B E E E
+W E E B E E E E B E E
+E E E B E E E E E B E
+E B E B E B B E E E E
+[!?!?!?]
+Player 0 wins!
+E E E B E B E E E E E
+E E E E B E E B E E W
+W E B B E E E E W W E
+E E B W B E E E W E E
+E B E E W W E E E E B
+E B E E E E E E E E E
+W B B E W B E E E E W
+W B E E W E E E E E E
+E B W E B E B E E E W
+E B E W E W B E E E W
+E B E E E W E W E E E
+[!?!?!?]
+Player 0 wins!
+B E E E E E E E E B E
+E E E B E B W E B B W
+E E E W E E E B B E E
+W E E E W E W W B E W
+E E B E E E W W B E E
+W E W E E B E E B E E
+E E E E E E W B E E E
+E E E E W W E B E E E
+W B E W E E E B E W W
+E E B E B W E B E E B
+W E E B E E E B E E W
+[!?!?!?]
+Player 0 wins!
+E W E E W E W E W B W
+E W E E E E E W E B E
+E B E E E B E B B B E
+E E E W E W E E E B E
+E E E E E E W E B W E
+E E E W E E B E B E E
+B E E E E E B B W B W
+E E E E E W E B W W E
+E E E E E E B B W E E
+E E B E E W B B W E E
+E E E E B E E B W E W
+[!?!?!?]
+Player 0 wins!
+E E E E B E E W B W E
+E W B E B W E E E E E
+W E E B B E E E W B W
+E E W W B B E E B B E
+E E W E B E E E E B E
+E E W E B E W B E E E
+E W E B E B E W E E B
+E E W B W E W E E E W
+E E E B E E E E E W E
+E E B E E E E E E W E
+E E B E E W E E E E E
+[!?!?!?]
+Player 1 wins!
+W E E E E E E B E B B
+E B E W E E B B E E E
+W W E B E E W E W E B
+B W E E B E E B E B B
+E E E B E E E E W E E
+E E E E E E W W W W W
+E E E W W W E E E W E
+E W W E E B E B E E B
+W B E E E E E E E W E
+E E E E E E B E E E B
+E E W E B E E W B B E
+[!?!?!?]
+Player 0 wins!
+B E B W W E E W B E E
+E E E E E W E B W B E
+W E B E W W W B E E B
+E E B E E E B W B E E
+E E E E E B E E W E E
+B W E E E B E E E E E
+B E E E E B W E E E W
+E E E E E B W E B E E
+W W E E E B W E E E E
+E B E E E B E E E W W
+E E W E W B E B E E E
+[!?!?!?]
+Player 1 wins!
+E B B E E W B E E E E
+B E E E E B E E E B B
+E E E W E E E W W E E
+E E E E B B B E W W W
+E W W W W W W W E E E
+W E E B B E B B E E W
+E E E B W E B E E E E
+E E E E E E E B E E E
+B W E W E E E E W B E
+E E E E E E E E E E E
+E B E E W E E E E B E
+[!?!?!?]
+Player 1 wins!
+E E E E B W B E B B E
+E E B E E E B E E E B
+W E E E E E E B E E B
+E B W E E E W B B E W
+E E E E E E E E E E B
+E W E E E E W W E W W
+B E B B E W E W W E E
+W W W E W B E W B E E
+E E W W E B E B E W B
+E E E W E E E E E E E
+E E W E B E E E E B E
+[!?!?!?]
+Player 0 wins!
+W E E E W W W E E B E
+E W W W E B E W B B E
+E E W E E W E B E E W
+E W E E E B B B E B E
+W W E B E E B E E E E
+E E E E E W B E E E E
+E E E B E E B E E E E
+E E E E W W B E E E E
+E E W B E B W E E E E
+B W E E E B E E E W B
+E E E E W B E B E E B
+[!?!?!?]
+Player 1 wins!
+B E E W E E E E E W W
+E W B E B E W B W B B
+E E E E E E W W E W E
+E B E E E W E E E E E
+E E E E W E B E E W E
+W W W W B E E E W E W
+E E E E E B W E B E B
+E W E E E E B E B E B
+E E B B W B E E E E B
+W E E B B E E E E E E
+E B E E E E E E E E E
+[!?!?!?]
+Player 0 wins!
+B B E E E E E E B E W
+E E B E E E W B E B E
+W E E B E E E B E B E
+W W W W E E B W E E W
+B E E E E W B W E W E
+E E E B E B E E E E W
+W B E E E B W E E E E
+E E B B B W E E E E E
+E B E E E E E E E E E
+E B E W E W E E W E E
+E B E E E E W E E E W
+[!?!?!?]
+Player 1 wins!
+E E E E E B E B E B E
+B B E E B W E B B W E
+E E B B E E E E E E E
+W W B W B E E E B E E
+E E E B E E E W W W W
+E B W B E B W B B E W
+E E E E E W E E E B E
+W W W W W E E E E W E
+E E B E E E E E W E E
+W E E E E B E E W W B
+E E E E E E E E E E E
+[!?!?!?]
+Player 1 wins!
+E W E E E B W B E E W
+W B E B B E E W E W E
+W E E E B E B W W W B
+E E E E E E E W E E W
+E B B E E E W E E E E
+W E B E E W E B E E E
+E B B W W B E E B E E
+E E W E B E E E E E E
+E W E W E B E W E B W
+W E E E B E E E E E E
+B B E E E B E E E E E
+[!?!?!?]
+Player 1 wins!
+E E E E E E B E E E E
+E E W E E E E E E E E
+W E E B B B E E B E W
+E E E E E E W E E E W
+B E W E E B E B B E W
+W E E E E E E B W E W
+E E E E E B W W E W B
+B E B B W W E W W E B
+E B E W E E E E E E E
+E E E W E E B B E E B
+W W W E E B E E B E E
+[!?!?!?]
+Player 0 wins!
+E E E E W E E E E B W
+E E W E E E E E W B E
+W W E W B E E E B W E
+B E E B E E E E B E E
+E E E E E E E E B B E
+E E W E W E E E B E E
+E W W E E E E E B E E
+B E W W E E B E B B E
+E E E E E W W W B B E
+E E W E E E E B E W E
+B E E E W B B E W B E
+[!?!?!?]
+Player 1 wins!
+E W E E E E E E E E E
+B B E E E E E W E E E
+B E B W E E E E E E W
+B E E E E E E E W W W
+E B E E E B W E W B E
+E E E B B E W W E W B
+E E W E W W E E E W E
+E E B W B E E E E E W
+E E W B E E E B B E E
+W W E B E B B E E E W
+W E E E B B E E E B B
+[!?!?!?]
+Player 0 wins!
+E E E E E W E W B W E
+E E E W E E E W B E E
+E W W W E W B W B E B
+B E W E W B W B E E E
+B E E E W W E B E B E
+E E E E E E B W E E E
+E E E E W E B E E E E
+E E W E W W B E E B E
+E E E E E E B E E W E
+E E B E E B E B W E E
+B E B E E B E E E B E
+[!?!?!?]
+Player 1 wins!
+E E E W E E B B E E W
+E E B E E E E B E E W
+E E E E E E E B E E E
+E E E E W E B W W W W
+E E B E E B B W E E B
+B B E B W W W E E E E
+E E E W E E B E B E E
+B E E W B E E B W W B
+W W W W E E B E E E E
+E E B E B B E E E E E
+W E E E E E W W E E E
+[!?!?!?]
+Player 1 wins!
+E E E E E B E E E B W
+E B E E E B E W W W E
+B B E W W E W E E E E
+W W W E W W E E E B E
+E W B B E B E W E E E
+E E E E E E B E E E E
+E E B E E E B E E E E
+E W B W E W W W E E B
+E E B W B B E E E B E
+E E E E E B E W B E E
+E E E E E E E E E E E
+[!?!?!?]
+Player 1 wins!
+B E E B E W W W E E E
+E E B B W E E W W W W
+E E W W E E B E E E E
+W W B B W E E W E E E
+E B E E W E E W B B W
+E E E E E E E E E E E
+B E E B B B B E W W E
+B E E E E B E E E E E
+W E W B E E E E E E E
+E E E E E E E E B E E
+E B E E B E E E E B W
+[!?!?!?]
+Player 1 wins!
+B E W W E E W E B E W
+E E E W B E E E E W B
+E E E E E E W W W E E
+B B B E B W E E E E B
+E E E E W E W W E B E
+E E E W B E E E E E E
+E E W E E W E E E E E
+W B W B E E E E E B B
+E W B E E E W B E B B
+W E W W B E B B E E B
+E E E E E E E E E E E
+[!?!?!?]
+Player 0 wins!
+E E E E E B E E B E E
+E W E W E B E B E W E
+E W E E E W E B E E E
+E E E W E E E B E W E
+E B E B E E E B E B E
+B E W B E W B W E E W
+E E E W W E B E E E E
+E E E E E B E E B E E
+E E W E E B W E E B W
+W E E B B E E W E E E
+E E E B E E E W W E E
+[!?!?!?]
+Player 0 wins!
+E E E B B E E E E E E
+B E E E B E E E E E W
+W E E W B W E W E E W
+E E E E B E W W B W E
+E E B B E E W E E E E
+E E W B E E E B E E B
+W E E B E W E B W E E
+E E E B E W E B E E W
+B W W B E B E E E E E
+E E B W W E E E E E E
+W E B E E E B E E E E
+[!?!?!?]
+Player 0 wins!
+E E E W E W E E E E B
+E W E B E W E E E B E
+W E E E W E W W E B E
+W E B E E E E B E B E
+E E E W E B E E B E W
+E B E E E E E E B E E
+E W E E E W W E B B B
+E E E E E E W E B B W
+W E B E W E B E B E E
+W E B E W E E W B E E
+B E E E E E W B E E E
+[!?!?!?]
+Player 1 wins!
+E W E W E W E E B E E
+B E E E E B E E E E W
+E E E B B E E E E W E
+E E E E B E E E B W B
+E E W W E E W W W W E
+W W E W E W E E E B E
+E E E W W B E E E E B
+E E E E E E E B E B W
+E B W B E W B B E E E
+W B E E E B E E E E E
+E B E B E W E B B E E
+[!?!?!?]
+Player 0 wins!
+E E E E E B E W B B E
+E E E W W B E E B W E
+E E E B B B E B W E E
+W E W E W B E B E E E
+E E E E W B W E W E W
+E W E E B E E E B E E
+E E W E B W E E E E W
+E E E B E E E E B E E
+E E E B W B E W B E E
+E E B E E W E B E E E
+E W B E E E W W E E E
+[!?!?!?]
+Player 1 wins!
+E E B E E E E E E E E
+E E W B E B W W E E B
+E B E E E E E E B E W
+E W E E E E E E B E E
+E E E E E E B E E E B
+E E B B W E E B E W W
+B B E W E B B E W B E
+E E E E E E B W W W E
+E W B W W E W E E E E
+W W W E W W E E B W E
+E E B E E E E E B E B
+[!?!?!?]
+Player 1 wins!
+W E E E B E E B E E E
+E E B E W E E E E B E
+E W E B W B E E E E E
+E E E W B E B B E B B
+E E B E E E W B E E B
+E E E E E E B B E E E
+E E B E W B E E E E W
+B B E B E W W B E W W
+E W W W W W W W W E E
+E W E E E E E E E B W
+W E E E E E E E E E E
+[!?!?!?]
+Player 0 wins!
+E E B B E E E E E W B
+E E E W E E E E E W B
+E W E E W E B E E B E
+E E E E E E B E W B E
+E E W B E E E E B E W
+E E E E W E E W B W E
+E W E E E E E B B W E
+E E E B E E E B E W B
+B E E E E W W B W E E
+E E W E E W E B E E B
+W E E E E E B B W E E
+[!?!?!?]
+Player 0 wins!
+B E B E E E E E W E W
+B E E E W E B E E E W
+B B W E E E W B E W B
+B W E B E E E E E E E
+B B E E E E E E E E E
+B E E W B W E E E E E
+B E E E W W E B E W E
+B E E E W E E W E E W
+B E W E B B E E E E W
+B E W E E E E B E E E
+B W E W E E E E W E E
+[!?!?!?]
+Player 1 wins!
+E E B E B E E B E W B
+E E E E E E E E E E E
+B E E E B E E B E B E
+E E E E E E E W E E E
+E E E E B B E W E B W
+E E E E W E E B E E W
+E W W W W W W W W W E
+W B E E B B B W E E W
+B E E B E E E E E E E
+E E E E E E E E W B E
+E E E E E E W E B E E
+[!?!?!?]
+Player 1 wins!
+E W E E E E E E E W E
+E W E E E B B E E E E
+E E E E E E E E B B E
+E W W B E E W E E B E
+B B E B E E E E E E E
+E B E E B W E B E E W
+B E E E E B E E E W B
+W E E E E E B E W E W
+W W B B W W W W W B B
+E W W W E E E E E E E
+B W B E E E E E E E B
+[!?!?!?]
+Player 0 wins!
+E W W W E E B E E E E
+E E W E B E B E E E E
+B W E E E E B B E E E
+E W W W E B B E E E E
+B W W E E B E E E B B
+E E E E E B E E E B W
+E E W E W B E B B E E
+E E E E E B E E E W B
+E E E E B E W W E E E
+E E W B E E W E E W B
+E E E B E E E W E W W
+[!?!?!?]
+Player 0 wins!
+B E E E E E E B B W E
+E E E E E B B E E W E
+E E E W E E B E E E E
+E E E W E E B E W W E
+B E E E E E B E E E E
+E E E E E B B E E W E
+E E W E W B E E W E E
+E W E E B E E E W E E
+E W E B E E E E E E B
+E E B B E W E E E W E
+E W E B E E E W E E E
+[!?!?!?]
+Player 1 wins!
+E W E E E E E E E B W
+B E E E E B E E W W B
+E W B E B E W W W E E
+E E E W W W W E B E E
+W W W W E B E E E E E
+E W E E E E E E E W E
+E E E E E B B E E E E
+B E B E B B E E E B B
+E E E E B E B E E W B
+E W E B B E E E W B W
+E E E E E E E E E E E
+[!?!?!?]
+Player 0 wins!
+E E E E E E E E B E W
+E W E E E E E B W E W
+E E W E W B B E E E E
+W E E B W B E E W E E
+W E E E B E E E E W E
+B E E E B E E E B E E
+W E E B B E E B E E W
+E E E B E E B E E E W
+E E W B B W E E W E W
+B E E B E E E E E B E
+W E B E E B W E E W E
+[!?!?!?]
+Player 0 wins!
+E B E W E W W E E W B
+E B E W E E B E E E B
+E E E W E E E E E B W
+E E B E W W E E E B B
+W E E E W E E E E B E
+W E E E W E E B B E E
+E E E E E E B E B E E
+E E E B E E E E B E E
+E E W W W E W B E E B
+E E E E E E E B E E W
+E E E W E E E B W B E
+[!?!?!?]
+Player 0 wins!
+E B E E E W E E B B E
+W E E E W E E B E W E
+B E E E B E E B E W E
+B B E B E E E B E E E
+E E E E E B B E E E E
+W E E E E E B E W E E
+E E E E E E B E E W E
+E E E E W B E E E E E
+E W E W W B B E E E E
+E E E E B W E W E E E
+E W W B W E E E W W E
+[!?!?!?]
+Player 1 wins!
+B E E E E E B B E E E
+E E E E E E E B E E E
+E E E E E E E E E E E
+E B E B E E B E E W E
+B B E B B E E E E W W
+E E W W E W W W W E W
+B W E W W E E E E E E
+W B E E E E W E E E B
+E E E E E E E E E E E
+E E B E B E E B W E W
+E E E E W E E E B E E
+[!?!?!?]
+Player 1 wins!
+E B E E E B E E E E E
+E B E B E E E B E E E
+E B E E E B E B W W W
+W E E E E E W W E W B
+E E B B E B E W E E E
+E E E B E W W W E E B
+W W W W W E E E W E E
+E W B E E E B E B E E
+B E B W B B B E E E E
+E E E E E E W E W W E
+E E E E E B E W E E E
+[!?!?!?]
+Player 0 wins!
+E E E E B E E B E W E
+E W E W E W B B E W E
+E E E E E E B E E E W
+W E B B E B E B E E E
+E E E W B E E E E E W
+E E E W B E E W E E E
+E E E B B E E B B E E
+E B E E B E E W E E E
+E W E B E E E E E W E
+E E B E E E E E E W W
+E B E W W E E E W E E
+[!?!?!?]
+Player 0 wins!
+E W E E B B W E B E E
+E E E W E E E B B B B
+E E W E E E E B W W E
+W E W E E E B E E E E
+E E E E E E B B E E W
+E B E B W B E E E B W
+W E W E B E E W W E W
+B W E B E E E E E E B
+E E B E E E W E E E W
+E E B E E E E E E E E
+E B E W E W W E B E E
+[!?!?!?]
+Player 1 wins!
+E E B E W E E W E E E
+B E B E E W E W W E E
+B E E E W W W E W W W
+B E W W E E E E E W E
+W W B B B E W E E E E
+B E E E W E E E E E E
+E B E W E E E E E E E
+E E E E E B E E E E E
+E B E E E E E E B B E
+W B E B B E E B E B E
+E E E E E E E E E B E
+[!?!?!?]
+Player 0 wins!
+E E E E W E B E E E E
+B W E W E B W E E W B
+W E E W E B E E B E E
+E W W E W B W B W W E
+E W E W W B E E E E E
+W E E E B E E E E E B
+E E E B E E B E E B E
+E B B E E E E E E E E
+W W B E E E E W E E E
+E E B B E E E E E E B
+E E B E W E E E B E E
+[!?!?!?]
+Player 1 wins!
+E E E E E B E E E B B
+E B E E E E E E E W E
+E E E E E B B B B E E
+W B E E E E E W B W E
+E E B E B B E W E E W
+E E E E E E W W W W E
+B B B E E W E E E E E
+E B B E W W B E W E E
+E E E E E W W E E E W
+E E W W W B E E E E B
+W W E E E E E E E B E
+[!?!?!?]
+Player 1 wins!
+E E W B E E E B B W W
+E B B E E E W W W E B
+E B E B E W E E E E E
+E W W W W B E E B E W
+W E E E W E E E W E E
+E E E E W E W E B E E
+E E W E E E B B E E B
+E B E W W E W E W E E
+B E E E E B E W B E E
+E E E B E E B E E E E
+E B E E B E E E E E B
+[!?!?!?]
+Player 0 wins!
+E E W W E E E E B W W
+W E E E E E B B E E E
+E B E E W E E B E E E
+W B E E E W B E W E E
+E E E E E B B E E E E
+E E W E B W B E E E E
+E E B E E E B W E E E
+E E W B E B B E E W E
+W W E B B E W E E E E
+E E B E E E E E B W E
+W E B E E W W E E B E
+[!?!?!?]
+Player 1 wins!
+E E E E E B E E B E E
+E E E E B E E E B E E
+E W E E E B E E B W E
+E E E E E E B W W W W
+B E B E E B W E W E E
+B E W E B E W E E E E
+E E B E E W B E E E B
+E W W W W E E E B E W
+W E E B E E E E B W W
+W E E E W E B E B E W
+B W E B E B E E E E E
+[!?!?!?]
+Player 1 wins!
+B E W E E E E E E E B
+W E E E E B E B E E B
+W E B E W E E E E E E
+E E E E E E B E B E B
+E B E E E W W W W E W
+E E W E E E W B W W E
+E E W W W W E B B E W
+W W B E E E E E E E E
+E W E E E E E E E B B
+W W E E B B B B B B E
+E E E E B E E E E E E
+[!?!?!?]
+Player 0 wins!
+E E B E E B E E E E E
+E W E W E B E W E E E
+E W B E B W E E B E E
+E E B B E W E E W E E
+E E E B E E E E W E E
+E E B E E E W E W E W
+W E B E E E W E E E E
+B E B E E E E E E E E
+W E B B E E B E E B W
+E B B B W E W W E W E
+E W W B E E E B E W B
+[!?!?!?]
+Player 0 wins!
+E E W E E E W W E B E
+E E E E W W E W W B E
+E W E E E E E B B E B
+E E B E E E B E E E E
+E E E E E E B E E E W
+E E E E W E B E E E E
+E E E E E E B W W W E
+E E E E B B W E E W B
+W E E E B E B E B E W
+E E E E B B E E E B W
+W E E E W B E E E B E
+[!?!?!?]
+Player 1 wins!
+E E B E E E E E E E E
+E B E E B B E E W E B
+E E E B B B W E W W W
+B E B E E B W E W B E
+W E B E E E E W W E E
+E B E E E E W E B E E
+E E W W W W E E W E E
+W W E E E E B E E E E
+E E B E B E E E E E B
+W B W W E E E E E E E
+E E E B B W E E E E E
+[!?!?!?]
+Player 1 wins!
+B B B W E E W E E B E
+B E E B W B B E E E E
+E B E E E E E B E E E
+B E B W E W E E E B W
+E W E B W E E E E E W
+E B E E W B B W W W E
+E E W W W W W E E E E
+W W E E W E E E E B E
+E B E E E E W E E E E
+B E E E E E E E E E B
+E E B W E B E E E E E
+[!?!?!?]
+Player 0 wins!
+E E E E E B W E E E B
+E E E B E E E E W E B
+E E E W E E E B W B B
+B E W E W E E E E B E
+W W E E W E E E E B E
+E E E B W E W E B B E
+E E E E B E E E B W E
+E E E E E E E B W E B
+W B E E E E B E W E E
+E E E E W B W E E E W
+E W E E B W E E E E E
+[!?!?!?]
+Player 1 wins!
+E E W B B B E E E E E
+E B E B E B E B W E B
+B W E E B E E W E B E
+E E E E W E E W E E E
+E E B E E W E E B B E
+E E E W E E E E W W W
+E E B E B E W W E E E
+B E E B W W E E E B E
+E E E W E E B E B E E
+W E W E E E E W E E W
+W W B B E E E E E W E
+[!?!?!?]
+Player 1 wins!
+E W E E E E E E E E E
+B E E B E B E B W B E
+E E E E E E E E E E E
+E B B E E B B E E E W
+E W E E E E W E E E E
+B W E B E E B E E W W
+W E E B E E E W W E E
+B E E B E W W E E E E
+E B E B W E E B B W E
+W B E W B E E E E E E
+W W W E E E E E E W E
+[!?!?!?]
+Player 1 wins!
+E B E B E E B B E W E
+E E E E E W E E E W E
+E B B E E W E E E E W
+E E E B E E E B E W E
+E E B B E E W W W E E
+E E E E W W E E B E E
+E E E B W E E E B E B
+E E B W E W W E E E E
+W W W E B E E E W E E
+E W E E E E E B E E E
+B E B E E E B E W E B
+[!?!?!?]
+Player 1 wins!
+E E E E E B E B W W W
+B E B E B E E W E E E
+E E E E E W W E W E E
+E E E E W E B E E E E
+E W E W E B E E E B B
+W W W E E E W E W B E
+E E E B E E E E E E B
+E E E E E B E E B E E
+E E E B E B E E E E W
+W E E E E E E E E B B
+B W E E E E E E W E E
+[!?!?!?]
+Player 0 wins!
+E E E E E B E E E B E
+E E B E E B E B E W E
+E W E E B E E E E W E
+B W B W B E E B E W E
+W E W B B E W E E W E
+E E B E B W E E E W E
+E E E B E W E B W E W
+W E E B W E E E E E E
+E E E B E W E E E E E
+E E B E W E E B E W E
+E W B E E E B B E W E
+[!?!?!?]
+Player 0 wins!
+W E W B E E W W E B B
+E E E E E E E W E B E
+E B E E W B B E B E W
+B W E E E W E B W E B
+E E E E W E W B E E W
+B E E E E W B E W E E
+E E B B E E B E E E E
+E E E E E E B E W W E
+E W E B E B E W E W E
+E W E E B E E E E E E
+E E E B E E E E W E B
+[!?!?!?]
+Player 0 wins!
+B E E E E W E B W E B
+B W W E E E W E E B E
+E E E B E E E E E B W
+B W W E E E E B B E E
+E W E E E E W W B E B
+E E E W E E E E B E W
+W E W E E W E B B B E
+E E E E B E B W E B E
+W E E E E B B E E E W
+E E W E E B E E E W E
+E E E E W B E E E E E
+[!?!?!?]
+Player 1 wins!
+B E E E E E E W E W W
+E E E W E W W W W B B
+E E W W W E E E E E E
+W W E W E E E E W B E
+E E E E E E E E E E E
+E E E E B E E E E B E
+E B E E E B E E E W E
+B E E B E B E E E E E
+E W E E E E E E W E B
+B E E B E E E W E E B
+E E B E B E B B E E E
+[!?!?!?]
+Player 1 wins!
+W E B E E B B E B B E
+E E E B B W E E B W E
+E E E B E E E E W B E
+E E E B E E E E E E W
+E W E E E E W E E E B
+E E E E E E E E W W E
+B E E E E W W W E W W
+E E B E W E E B E E B
+E E B E W B E W E E E
+E E W W E B E E W B E
+W W E B E B E E W E B
+[!?!?!?]
+Player 0 wins!
+E E E E W B E E B E E
+B W E E E E B B E E B
+E B E W B W B W E W E
+E E E W W B B E W E B
+E W W W B E E E W E E
+B E E B E E W E E E E
+W E B E E E E W E E E
+E E B E E E E E E E E
+E W B E W E E E E E E
+W B W E E E E E B E E
+B E E E E W E E E E B
+[!?!?!?]
+Player 0 wins!
+E W B E E E B B E E E
+E W B E E E B W W W E
+E E E E B W B E W E W
+E E E E W E B E E E E
+E B E E E E B E E E E
+E E W E E E B E E E E
+E W E W E E B E E E E
+E E E B E E B W E E B
+E E E E B B E E E E W
+B W E E E B B W E E W
+E E E E E B W E E W W
+[!?!?!?]
+Player 1 wins!
+B E E W B E W E E E W
+E E B E E E E E E B W
+E E B B B W E E W W B
+E W B B E W W W E E E
+E E W W W E E E E E E
+W W E E E E E E E B W
+W E E B E E B E E E B
+B E E E E E E B E E E
+E E E W E E W E E B E
+E W W E E B E E E E B
+E E E E E E B E B E B
+[!?!?!?]
+Player 1 wins!
+E E E E E B E E E B W
+E E B E E E E E W B E
+B E W B E B E E E E W
+B B E W E B E W W W E
+E B E E E W W E E B E
+E E E E W E E W E B W
+W W W W B B E E E E B
+E E E E B W W E E E W
+E E E E W E E B E E E
+E B B W B B E E E E E
+W E E E E B E E E E E
+[!?!?!?]
+Player 0 wins!
+E W E W W E E B W W E
+B E E E E E B E E E E
+E E E E E E B E E E W
+E E B W E E B E W E W
+W E E E B B B E E E W
+B E E W B E B E B E E
+E E E B E E W B E W W
+E E E B W W W E W E E
+E E B E E B E E E B E
+B E B E E W B E E E E
+E E B E E E E W E W E
+[!?!?!?]
+Player 0 wins!
+E W B E W B E W E E E
+E E W E E B W E E B E
+E E E E B E E W B E E
+E E W E B E E E E E W
+W E W E B E B E E E E
+B E B B B B E E E E E
+E E W W W B E E E W W
+E E E W W B E E E E W
+E E E E E B E E E E E
+B E E E B E E B B E E
+W B W E B E E E E W W
+[!?!?!?]
+Player 0 wins!
+E W E E E E B E E E E
+B E W W E E B E E E B
+E B B W W W B E E E W
+E E E E W B W E W B E
+E E E E B E E E E W E
+E E E B W W B E W W E
+E B B E W E E B E E E
+E E B E E E E W B E E
+E B E W E B E B E E B
+B E W E E E E E E E E
+B E E W E E W W E E E
+[!?!?!?]
+Player 1 wins!
+W E E B E E E E E E E
+B E B E E B E E E W E
+E E E W E E E W E B E
+B E W E E E E E E E B
+E E W E E E W W W E W
+E B E B E W B W W W E
+B E W W W E E E E B B
+W W E E E E B E B W E
+E B E E E E E E E B B
+E E E B E W E E E E E
+E E B E E B B B W E W
+[!?!?!?]
+Player 0 wins!
+E E E E W E W E E W B
+W W W E W E B E E E B
+E E E E E E E E W W B
+E E W E W W E E E B E
+E E E E E E E W B B E
+E E E B E W E E B E E
+E E E B E W E E B E E
+E E E B B E E B B E W
+W E E W E E E B E W E
+E B E E B B B E E B E
+E E E W B E W E E B W
+[!?!?!?]
+Player 0 wins!
+E E E E E B B W E E W
+E E E E B B E W E W E
+E E E W E B E E B W E
+E E E B B E E E E W E
+E W B E E E W W B E E
+W E B W E E E E E W B
+E E B E E E W E W E E
+E E B B E E W E W B E
+E E B W E E B B W E B
+E E B E E E E E W E E
+E B E W E E E E E E E
+[!?!?!?]
+Player 1 wins!
+E E E E E E E E B E B
+E E W E E B B E E W E
+B B E W B B E E B E E
+B W E E E E E B E W E
+E E E B E B E E E E E
+B E W W E E W W E E W
+W W B W W W E W W W E
+W W E E E E E E B B E
+E B E B E W B B E E E
+E E E E E E B E E E E
+B E E W E E E E W E E
+[!?!?!?]
+Player 0 wins!
+E E E W W E B E B E E
+E E E E E E B W E E E
+W E W E E B W E E E W
+E E E E E B E E E E E
+E E E W E B B E E B E
+W E W W E E B E E E E
+E E E E E B W E E B W
+W W E E B E E E B B E
+E E E B B E W E E E E
+E B E E B B E W W E W
+B E W W B E E E E E B
+[!?!?!?]
+Player 1 wins!
+E E E E E E E E E E E
+E B E B W W E E W W W
+B W W W E W W W E E E
+E W E E E B E E B E E
+W E B E B E E E B E E
+E E E E E E B B E E E
+E E W B E W E E E W E
+E B E E B E B B B E E
+E E E E E E E W E E E
+B E E W E E E B W E E
+W E W W B E E B E B B
+[!?!?!?]
+Player 0 wins!
+B E E W E E B E W E E
+B B W E E E B E E E B
+E W E E E E B B E W E
+E W W E E E B E W B E
+E E B E E B E E E E E
+W E E E B E E E W E E
+W W E B W E W E E B E
+E E B W E E E E E E E
+E W B E E E E W E W B
+E B E E E E B B E W E
+B E W E W E E E B W E
+[!?!?!?]
+Player 1 wins!
+E E B E E E E E E E E
+W E E E W B W E E B E
+W E B B B W E E E E E
+E B B E E B B B E E E
+E E B E E E B E E W W
+E E E E E E B E W E E
+E E E E E E E W E E B
+E E E E B E W W E E B
+W E E W W W W E E E E
+E B W E E E E E E E W
+W W E E E E B B E W B
+[!?!?!?]
+Player 1 wins!
+E B E E W W E E E W E
+E E W E E E W B B B E
+E E E E E E B E B E W
+B E E B W W W W W W E
+W E W W E E B E E E E
+W W B E E E E W E E E
+B E E E E E E E E E B
+E B E E E B E E E W E
+E E E E E B E E B B E
+E E B W B B W E E E W
+E B E E W B E E B E E
+[!?!?!?]
+Player 0 wins!
+E E W E E W E W B E W
+E E E E E B B E B E E
+E E E E E E E E B E E
+E E E E B W E B E E W
+E E W W B E B E B E W
+E E E W B B W E E E E
+E E E B W E E E E E E
+E B B E E E E W E W W
+B E W B E E E E E W E
+B B E E W E E E B E W
+B E E E E E E E E W E
+[!?!?!?]
+Player 0 wins!
+W E E W B E E E E E W
+B W E E B W E E E E E
+B E W B E E W E W W E
+E W E B E E B E W W B
+E E E B E E W E B E E
+E E B E W W E E W E W
+E B E W E E E W E B E
+B B E E E E E E E W E
+E B E E E E E E W E E
+B E B E B E W E E E E
+B E E E B B E E E B E
+[!?!?!?]
+
+
+
