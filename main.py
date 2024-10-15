@@ -27,7 +27,7 @@ eval_log_folder = os.path.join('.', 'log', 'eval', f'eval-{dt}') #  f'eval-{date
 # Graph settings
 def default_args(**kwargs):
     parser = argparse.ArgumentParser()
-    parser.add_argument("--epochs", default=100, type=int)
+    parser.add_argument("--epochs", default=1000, type=int)
     parser.add_argument("--number-of-clauses", default=60, type=int)
     parser.add_argument("--T", default=200, type=int)
     parser.add_argument("--s", default=1.0, type=float)
@@ -42,6 +42,7 @@ def default_args(**kwargs):
     parser.add_argument("--number-of-classes", default=3, type=int)
     parser.add_argument("--max-sequence-length", default=10, type=int)
     parser.add_argument("--max-included-literals", default=4, type=int)
+    parser.add_argument("--log-interval", default=10, type=int)
 
     args = parser.parse_args()
     for key, value in kwargs.items():
@@ -96,10 +97,13 @@ tm = MultiClassGraphTsetlinMachine(
     block=(128,1,1)
 )
 
-log_result(training_log_folder, f'train-{dt}.log', "#    result train    result test    train time    test time")
+log_result(training_log_folder, f'train-{dt}', "#    result train    result test    train time    test time")
 
+# Plot data
 plot_x = []
 plot_y = []
+log_data = ""
+
 
 for i in range(args.epochs):
     start_training = time()
@@ -112,26 +116,17 @@ for i in range(args.epochs):
 
     result_train = 100*(tm.predict(graphs_train) == Y_train).mean()
 
-    log_result(training_log_folder, f'train-{dt}.log',
-               "%d    %.2f    %.2f    %.2f    %.2f" % (i, result_train, result_test, stop_training - start_training, stop_testing - start_testing)
-    )
+    log_data += "%d    %.2f    %.2f    %.2f    %.2f" % (i, result_train, result_test, stop_training - start_training, stop_testing - start_testing)
+    log_data += f"\n\nTrain prediction: {tm.predict(graphs_train)}. True value: {Y_train}\nTest prediction: {tm.predict(graphs_test)}. True value: {Y_test}\n"
 
-    print("%d %.2f %.2f %.2f %.2f" % (i, result_train, result_test, stop_training-start_training, stop_testing-start_testing))
+    if i % args.log_interval == 0:
+        log_result(training_log_folder, f'train-{dt}', log_data)
+        plot_x.append(i)
+        plot_y.append(result_test)
+        log_data = ""
+        print("Epoch: " + str(i))
 
-    print("\n\n")
-    log_result(training_log_folder, f'train-{dt}.log', f"Train prediction: {tm.predict(graphs_train)}. True value: {Y_train}\n" +
-                                  f"Test prediction: {tm.predict(graphs_test)}. True value: {Y_test}\n"
-    )
-
-    print(f"Train prediction: {tm.predict(graphs_train)}. True value: {Y_train}")
-    print(f"Test prediction: {tm.predict(graphs_test)}. True value: {Y_test}")
-    print("\n\n")
-
-    plot_x.append(i)
-    plot_y.append(result_test)
-
-    plot(plot_x, plot_y, x_label='Epoch', y_label='Accuracy', title='Accuracy Test Data', path=os.path.join(training_log_folder, 'plot.png'))
-
+plot(plot_x, plot_y, x_label='Epoch', y_label='Accuracy (%)', title='Accuracy Test Data', path=os.path.join(training_log_folder, 'plot.png'))
 weights = tm.get_state()[1].reshape(2, -1)
 
 for i in range(tm.number_of_clauses):
@@ -156,3 +151,7 @@ for i in range(tm.number_of_clauses):
 print(graphs_test.hypervectors)
 print(tm.hypervectors)
 print(graphs_test.edge_type_id)
+
+hv_log = f"Test data hypervectors:\n{str(graphs_test.hypervectors)}\n\nTM hypervectors: {str(tm.hypervectors)}"
+log_result(training_log_folder, f"test-hv-{dt}", hv_log)
+log_result(training_log_folder, f"test-edge-type-{dt}", str(graphs_test.edge_type_id))
