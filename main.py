@@ -4,8 +4,8 @@ from time import time
 from datetime import datetime
 from GraphTsetlinMachine.graphs import Graphs
 from GraphTsetlinMachine.tm import MultiClassGraphTsetlinMachine
-
 from format import init_graph, train_data_from_file, log_result
+from plot import plot
 
 # Hex settings
 BOARD_WIDTH = 3
@@ -19,8 +19,10 @@ test_path = os.path.join('.', 'data', 'hex_test.json')
 
 x_train = train_data_from_file(train_path)['result']
 x_test = train_data_from_file(test_path)['result']
-training_log_path = os.path.join('.', 'log', 'train', f'train-{datetime.now()}.log')
-eval_log_path = os.path.join('.', 'log', 'eval', f'eval-{datetime.now()}.log')
+
+dt = datetime.now()
+training_log_folder = os.path.join('.', 'log', 'train', f'train-{dt}') # f'train-{datetime.now()}.log'
+eval_log_folder = os.path.join('.', 'log', 'eval', f'eval-{dt}') #  f'eval-{datetime.now()}.log'
 
 # Graph settings
 def default_args(**kwargs):
@@ -94,7 +96,10 @@ tm = MultiClassGraphTsetlinMachine(
     block=(128,1,1)
 )
 
-log_result(training_log_path, "#    result train    result test    train time    test time")
+log_result(training_log_folder, f'train-{dt}.log', "#    result train    result test    train time    test time")
+
+plot_x = []
+plot_y = []
 
 for i in range(args.epochs):
     start_training = time()
@@ -107,20 +112,25 @@ for i in range(args.epochs):
 
     result_train = 100*(tm.predict(graphs_train) == Y_train).mean()
 
-    log_result(training_log_path,
+    log_result(training_log_folder, f'train-{dt}.log',
                "%d    %.2f    %.2f    %.2f    %.2f" % (i, result_train, result_test, stop_training - start_training, stop_testing - start_testing)
     )
 
     print("%d %.2f %.2f %.2f %.2f" % (i, result_train, result_test, stop_training-start_training, stop_testing-start_testing))
 
     print("\n\n")
-    log_result(training_log_path, f"Train prediction: {tm.predict(graphs_train)}. True value: {Y_train}\n" +
+    log_result(training_log_folder, f'train-{dt}.log', f"Train prediction: {tm.predict(graphs_train)}. True value: {Y_train}\n" +
                                   f"Test prediction: {tm.predict(graphs_test)}. True value: {Y_test}\n"
     )
 
     print(f"Train prediction: {tm.predict(graphs_train)}. True value: {Y_train}")
     print(f"Test prediction: {tm.predict(graphs_test)}. True value: {Y_test}")
     print("\n\n")
+
+    plot_x.append(i)
+    plot_y.append(result_test)
+
+    plot(plot_x, plot_y, x_label='Epoch', y_label='Accuracy', title='Accuracy Test Data', path=os.path.join(training_log_folder, 'plot.png'))
 
 weights = tm.get_state()[1].reshape(2, -1)
 

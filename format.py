@@ -1,4 +1,6 @@
 import json
+import os.path
+
 import numpy as np
 from GraphTsetlinMachine.graphs import Graphs
 
@@ -154,6 +156,12 @@ def train_data_from_file(path):
     return data
 
 
-def log_result(path, result):
-    with open(path, "a") as f:
+def log_result(folder_path, file_name, result):
+    if not os.path.exists(folder_path):
+        print("Making dir: ")
+        os.mkdir(folder_path)
+
+    file_path = os.path.join(folder_path, f'{file_name}.log')
+
+    with open(file_path, "a") as f:
         f.write(result + "\n")
