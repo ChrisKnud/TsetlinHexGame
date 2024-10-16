@@ -14,8 +14,8 @@ BOARD_WIDTH = 3
 # W = White
 # E = Empty
 SYMBOLS = ['B', 'W', 'E']
-train_path = os.path.join('.', 'data', 'hex_train.json')
-test_path = os.path.join('.', 'data', 'hex_test.json')
+train_path = os.path.join('.', 'data', 'train-2024-10-16-20:43:41.724711.json')
+test_path = os.path.join('.', 'data', 'eval-2024-10-16-20:43:41.724711.json')
 
 x_train = train_data_from_file(train_path)['result']
 x_test = train_data_from_file(test_path)['result']
@@ -123,7 +123,7 @@ for i in range(args.epochs):
     result_train = 100*(tm.predict(graphs_train) == Y_train).mean()
 
     log_data += "%d    %.2f    %.2f    %.2f    %.2f" % (i, result_train, result_test, stop_training - start_training, stop_testing - start_testing)
-    log_data += f"\n\nTrain prediction: {tm.predict(graphs_train)}. True value: {Y_train}\nTest prediction: {tm.predict(graphs_test)}. True value: {Y_test}\n"
+    log_data += f"\n\nTrain prediction: {tm.predict(graphs_train)}.\nTrue value: {Y_train}\n\nTest prediction: {tm.predict(graphs_test)}.\nTrue value: {Y_test}\n"
 
     if i % args.log_interval == 0:
         log_result(training_log_folder, f'train-{dt}', log_data)

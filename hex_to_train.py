@@ -35,7 +35,8 @@ W W W W E E B W B E E
 [NEW GAME]
 """
 
-file_name = 'hex_train'
+file_name = 'data'
+split = True
 
 with open(f"data/{file_name}.txt", "r") as f:
     lines = f.readlines()
@@ -60,16 +61,22 @@ with open(f"data/{file_name}.txt", "r") as f:
             winner = ""
             board = []
 
+dt = str(datetime.now()).replace(' ', '-')
+print(dt)
 
 with open(f"data/{file_name}.json", "w") as f:
     f.write(json.dumps(games, indent=4))
 
+# Make train and test data if split == True
+if split:
+    data = train_data_from_file(f"data/{file_name}.json")
 
+    split_pos = int(len(data['result'])/2)
+    print('Split position: ' + str(split_pos))
+    train_data = {'result': data['result'][:split_pos]}
+    test_data = {'result': data['result'][split_pos:]}
 
-data = train_data_from_file(f"data/{file_name}.json")
-
-
-
-dt = datetime.now()
-ts = datetime.timestamp(dt)
-print(dt)
+    with open(f"data/train-{dt}.json", "w") as f:
+        f.write(json.dumps(train_data, indent=4))
+    with open(f"data/eval-{dt}.json", "w") as f:
+        f.write(json.dumps(test_data, indent=4))

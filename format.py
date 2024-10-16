@@ -118,20 +118,23 @@ def init_graph(graphs, number_of_examples, number_of_classes, noise, board_width
                 case _:
                     connected_nodes = None
 
-            if connected_nodes is not None:
-                print(f"Node type: {node_type}")
-                for destination_node_id in connected_nodes:
-                    print(f"Adding edge ({node_id}): {destination_node_id}")
-                    if data[graph_id]['board'][node_id] == data[graph_id]['board'][destination_node_id]:
-                        print(f"Winner node: {data[graph_id]['board'][node_id]}")
-                        print(f"Node {node_id} and {destination_node_id} Connected")
-                        graphs.add_graph_node_edge(graph_id, node_id, destination_node_id, 'Connected')
-                    else:
-                        print(f"Node {node_id} and {destination_node_id} NOT connected")
-                        graphs.add_graph_node_edge(graph_id, node_id, destination_node_id, 'NOT Connected')
-            else:
-                print("Connected nodes is 1.")
-                exit(-1)
+            try:
+                if connected_nodes is not None:
+                    print(f"Node type: {node_type}")
+                    for destination_node_id in connected_nodes:
+                        print(f"Adding edge ({node_id}): {destination_node_id}")
+                        if data[graph_id]['board'][node_id] == data[graph_id]['board'][destination_node_id]:
+                            print(f"Winner node: {data[graph_id]['board'][node_id]}")
+                            print(f"Node {node_id} and {destination_node_id} Connected")
+                            graphs.add_graph_node_edge(graph_id, node_id, destination_node_id, 'Connected')
+                        else:
+                            print(f"Node {node_id} and {destination_node_id} NOT connected")
+                            graphs.add_graph_node_edge(graph_id, node_id, destination_node_id, 'NOT Connected')
+                else:
+                    print("Connected nodes is 1.")
+                    exit(-1)
+            except IndexError:
+                print('Possible that training data does not contain enough examples.')
 
         # 0 if black wins, 1 if white wins
         Y_train[graph_id] = 0 if data[graph_id]['winner'] == 'B' else 1
