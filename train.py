@@ -4,7 +4,7 @@ from time import time
 from datetime import datetime
 from GraphTsetlinMachine.graphs import Graphs
 from GraphTsetlinMachine.tm import MultiClassGraphTsetlinMachine
-from format import init_graph, train_data_from_file, log_result
+from format import init_graph, train_data_from_file, log_result, board_as_string, clauses_as_string, save_tm
 from plot import plot
 
 # Hex settings
@@ -97,6 +97,12 @@ tm = MultiClassGraphTsetlinMachine(
     block=(128,1,1)
 )
 
+for i in range(len(x_train)):
+    log_result(training_log_folder, f'boards-train-{dt}', f'{i} Winner: {x_train[i]["winner"]}\n{board_as_string(x_train[i]["board"])}')
+
+for i in range(len(x_test)):
+    log_result(training_log_folder, f'boards-test-{dt}', f'{i} Winner: {x_test[i]["winner"]}\n{board_as_string(x_test[i]["board"])}')
+
 log_result(training_log_folder, f'train-{dt}', "#    result train    result test    train time    test time")
 
 # Plot data
@@ -129,24 +135,8 @@ for i in range(args.epochs):
 plot(plot_x, plot_y, x_label='Epoch', y_label='Accuracy (%)', title='Accuracy Test Data', path=os.path.join(training_log_folder, 'plot.png'))
 weights = tm.get_state()[1].reshape(2, -1)
 
-for i in range(tm.number_of_clauses):
-        print("Clause #%d W:(%d %d)" % (i, weights[0,i], weights[1,i]), end=' ')
-        l = []
-        for k in range(args.hypervector_size * 2):
-            if tm.ta_action(0, i, k):
-                if k < args.hypervector_size:
-                    l.append("x%d" % (k))
-                else:
-                    l.append("NOT x%d" % (k - args.hypervector_size))
-
-        for k in range(args.message_size * 2):
-            if tm.ta_action(1, i, k):
-                if k < args.message_size:
-                    l.append("c%d" % (k))
-                else:
-                    l.append("NOT c%d" % (k - args.message_size))
-
-        print(" AND ".join(l))
+clauses = clauses_as_string(tm, weights, args.hypervector_size, args.message_size)
+log_result(training_log_folder, f'clauses-{dt}', clauses)
 
 print(graphs_test.hypervectors)
 print(tm.hypervectors)
@@ -155,3 +145,6 @@ print(graphs_test.edge_type_id)
 hv_log = f"Test data hypervectors:\n{str(graphs_test.hypervectors)}\n\nTM hypervectors: {str(tm.hypervectors)}"
 log_result(training_log_folder, f"test-hv-{dt}", hv_log)
 log_result(training_log_folder, f"test-edge-type-{dt}", str(graphs_test.edge_type_id))
+
+print('Saving Tsetlin Machine at: ' + str(os.path.join(training_log_folder, 'tm.pkl')))
+save_tm(tm, os.path.join(training_log_folder, 'tm.pkl'))

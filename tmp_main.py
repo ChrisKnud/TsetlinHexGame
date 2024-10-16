@@ -1,3 +1,4 @@
+from format import board_as_string
 from plot import hex_grid
 
 board = [
@@ -132,4 +133,6 @@ small_board = [
 
 
 # Create a hexagonal board with a radius of 1.0, 5 rows and 5 columns
-hex_grid(1.0,  board)
+#hex_grid(1.0,  board)
+
+print(board_as_string(board))

@@ -1,8 +1,12 @@
 import json
+import math
 import os.path
+import pickle
 
 import numpy as np
 from GraphTsetlinMachine.graphs import Graphs
+from GraphTsetlinMachine.tm import MultiClassGraphTsetlinMachine
+
 
 def add_hex_edges(graphs, graph_id, node_id, destination_node_ids):
     for id in destination_node_ids:
@@ -165,3 +169,83 @@ def log_result(folder_path, file_name, result):
 
     with open(file_path, "a") as f:
         f.write(result + "\n")
+
+def board_as_string(board):
+    board_width = int(math.sqrt(len(board)))
+
+    board_str = ""
+    for i in range(len(board)):
+        if board[i] == 'E':
+            board_str += '. '
+        else:
+            board_str += str(board[i]) + " "
+        if i != 0 and i % board_width == board_width - 1:
+            board_str += "\n"
+
+    return board_str
+
+def clauses_as_string(tm: MultiClassGraphTsetlinMachine, weights, hv_size, message_size):
+    clause_str = ""
+    for i in range(tm.number_of_clauses):
+        clause_str += "\n\nClause #%d W:(%d %d)" % (i, weights[0, i], weights[1, i])
+        l = []
+        for k in range(hv_size * 2):
+            if tm.ta_action(0, i, k):
+                if k < hv_size:
+                    l.append("x%d" % (k))
+                else:
+                    l.append("NOT x%d" % (k - hv_size))
+
+        for k in range(message_size * 2):
+            if tm.ta_action(1, i, k):
+                if k < message_size:
+                    l.append("c%d" % (k))
+                else:
+                    l.append("NOT c%d" % (k - message_size))
+
+        clause_str += "\n" + " AND ".join(l)
+
+    return clause_str
+
+
+def save_tm(tm, path):
+    tm_hyperparams = {
+        'number_of_clauses': tm.number_of_clauses,
+        'T': tm.T,
+        's': tm.s,
+        'q': tm.q,
+        'max_included_literals': tm.max_included_literals,
+        'boost_true_positive_feedback': tm.boost_true_positive_feedback,
+        'number_of_state_bits': tm.number_of_state_bits,
+        'depth': tm.depth,
+        'message_size': tm.message_size,
+        'message_bits': tm.message_bits,
+        'grid': tm.grid,
+        'block': tm.block,
+    }
+    with open(path, 'wb') as f:
+        pickle.dump(tm_hyperparams, f)
+
+def load_tm(path):
+    with open(path, 'rb') as f:
+        data = pickle.load(f)
+
+    model = MultiClassGraphTsetlinMachine(
+        number_of_clauses=data['number_of_clauses'],
+        T=data['T'],
+        s=data['s'],
+        q=data['q'],
+        max_included_literals=data['max_included_literals'],
+        boost_true_positive_feedback=data['boost_true_positive_feedback'],
+        number_of_state_bits=data['number_of_state_bits'],
+        depth=data['depth'],
+        message_size=data['message_size'],
+        message_bits=data['message_bits'],
+        grid=data['grid'],
+        block=data['block'],
+    )
+
+    model.clauses = data['clauses']
+    model.weights = data['weights']
+
+    return model
