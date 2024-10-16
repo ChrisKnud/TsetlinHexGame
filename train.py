@@ -1,4 +1,5 @@
 import argparse
+import math
 import os.path
 from time import time
 from datetime import datetime
@@ -6,9 +7,6 @@ from GraphTsetlinMachine.graphs import Graphs
 from GraphTsetlinMachine.tm import MultiClassGraphTsetlinMachine
 from format import init_graph, train_data_from_file, log_result, board_as_string, clauses_as_string, save_tm
 from plot import plot
-
-# Hex settings
-BOARD_WIDTH = 3
 
 # B = Black
 # W = White
@@ -20,6 +18,10 @@ test_path = os.path.join('.', 'data', 'eval-2024-10-16-20:43:41.724711.json')
 x_train = train_data_from_file(train_path)['result']
 x_test = train_data_from_file(test_path)['result']
 
+
+# Hex settings
+BOARD_WIDTH = int(math.sqrt(len(x_train[0]['board'])))
+print("Board width: " + str(BOARD_WIDTH))
 dt = str(datetime.now()).replace(' ', '')
 training_log_folder = os.path.join('.', 'log', 'train', f'train-{dt}') # f'train-{datetime.now()}.log'
 eval_log_folder = os.path.join('.', 'log', 'eval', f'eval-{dt}') #  f'eval-{datetime.now()}.log'
