@@ -20,7 +20,7 @@ test_path = os.path.join('.', 'data', 'hex_test.json')
 x_train = train_data_from_file(train_path)['result']
 x_test = train_data_from_file(test_path)['result']
 
-dt = datetime.now()
+dt = str(datetime.now()).replace(' ', '')
 training_log_folder = os.path.join('.', 'log', 'train', f'train-{dt}') # f'train-{datetime.now()}.log'
 eval_log_folder = os.path.join('.', 'log', 'eval', f'eval-{dt}') #  f'eval-{datetime.now()}.log'
 

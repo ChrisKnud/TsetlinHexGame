@@ -222,11 +222,14 @@ def save_tm(tm, path):
         'message_bits': tm.message_bits,
         'grid': tm.grid,
         'block': tm.block,
+        'state': tm.get_state()
     }
+
+
     with open(path, 'wb') as f:
         pickle.dump(tm_hyperparams, f)
 
-def load_tm(path):
+def load_tm(path) -> MultiClassGraphTsetlinMachine:
     with open(path, 'rb') as f:
         data = pickle.load(f)
 
@@ -245,7 +248,6 @@ def load_tm(path):
         block=data['block'],
     )
 
-    model.clauses = data['clauses']
-    model.weights = data['weights']
+    model.set_state(data['state'])
 
     return model
