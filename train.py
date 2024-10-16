@@ -55,8 +55,11 @@ args = default_args()
 
 print("Creating training data")
 
-# Create train data
+hyperparams = ''
+for arg in args.__dict__.items(): hyperparams += str(arg)
+log_result(training_log_folder, f'hyperparams-{dt}', hyperparams)
 
+# Create train data
 graphs_train = Graphs(
     args.number_of_examples,
     symbols=SYMBOLS,
