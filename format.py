@@ -28,6 +28,7 @@ def get_number_of_edges(node_id, board_width):
         case _:
             return exit(-1)
 
+
 """
 Returns one of the following:
     Corner
@@ -37,6 +38,8 @@ Returns one of the following:
     Last column (excluding corners)
     Default
 """
+
+
 def get_node_type(node_id, board_width):
     board_size = board_width * board_width
     top_left = 0
@@ -67,11 +70,9 @@ def get_node_type(node_id, board_width):
         return 'LastColumn'
     else:
         return 'Default'
-    
-    
-    
-def init_graph(graphs, number_of_examples, number_of_classes, noise, board_width, data):
 
+
+def init_graph(graphs, number_of_examples, number_of_classes, noise, board_width, data):
     for graph_id in range(number_of_examples):
         graphs.set_number_of_graph_nodes(graph_id, board_width * board_width)
 
@@ -173,6 +174,7 @@ def log_result(folder_path, file_name, result):
     with open(file_path, "a") as f:
         f.write(result + "\n")
 
+
 def board_as_string(board):
     board_width = int(math.sqrt(len(board)))
 
@@ -186,6 +188,7 @@ def board_as_string(board):
             board_str += "\n"
 
     return board_str
+
 
 def clauses_as_string(tm: MultiClassGraphTsetlinMachine, weights, hv_size, message_size):
     clause_str = ""
@@ -228,9 +231,9 @@ def save_tm(tm, path):
         'state': tm.get_state()
     }
 
-
     with open(path, 'wb') as f:
         pickle.dump(tm_hyperparams, f)
+
 
 def load_tm(path) -> MultiClassGraphTsetlinMachine:
     with open(path, 'rb') as f:

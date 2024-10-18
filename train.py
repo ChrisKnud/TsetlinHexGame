@@ -12,8 +12,9 @@ from plot import plot
 # W = White
 # E = Empty
 SYMBOLS = ['B', 'W', 'E']
-train_path = os.path.join('.', 'data', 'train-2024-10-16-20:43:41.724711.json')
-test_path = os.path.join('.', 'data', 'eval-2024-10-16-20:43:41.724711.json')
+
+train_path = os.path.join('.', 'data', 'train-22x222024-10-18-22:07:06.774696.json')
+test_path = os.path.join('.', 'data', 'eval-22x222024-10-18-22:07:06.774696.json')
 
 x_train = train_data_from_file(train_path)['result']
 x_test = train_data_from_file(test_path)['result']
@@ -22,6 +23,7 @@ x_test = train_data_from_file(test_path)['result']
 # Hex settings
 BOARD_WIDTH = int(math.sqrt(len(x_train[0]['board'])))
 print("Board width: " + str(BOARD_WIDTH))
+
 dt = str(datetime.now()).replace(' ', '')
 training_log_folder = os.path.join('.', 'log', 'train', f'train-{dt}') # f'train-{datetime.now()}.log'
 eval_log_folder = os.path.join('.', 'log', 'eval', f'eval-{dt}') #  f'eval-{datetime.now()}.log'

@@ -1,7 +1,6 @@
 from datetime import datetime
 import json
 from format import train_data_from_file
-
 """
 Run this to produce a json file containing training data
 produced by the C code provided by granmo.
@@ -19,7 +18,7 @@ W E E E B E W E B E E
 E W E W E E B W B E E
 B W E E E E E E B W E
 E E E E E E B B E E E
-[NEW GAME]
+[!?!?!?]
 Player 1 wins!
 E B E E E E W B E E E
 E E E E B E E B E E E
@@ -32,10 +31,9 @@ E B E E E W E B B E E
 E B E B W E W E E W E
 W E E W W E B E E W W
 W W W W E E B W B E E
-[NEW GAME]
+[!?!?!?]
 """
-
-file_name = 'data'
+file_name = 'data_22x22'
 split = True
 
 with open(f"data/{file_name}.txt", "r") as f:
@@ -76,7 +74,7 @@ if split:
     train_data = {'result': data['result'][:split_pos]}
     test_data = {'result': data['result'][split_pos:]}
 
-    with open(f"data/train-{dt}.json", "w") as f:
+    with open(f"data/train-22x22{dt}.json", "w") as f:
         f.write(json.dumps(train_data, indent=4))
-    with open(f"data/eval-{dt}.json", "w") as f:
+    with open(f"data/eval-22x22{dt}.json", "w") as f:
         f.write(json.dumps(test_data, indent=4))
