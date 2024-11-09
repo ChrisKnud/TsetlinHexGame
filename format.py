@@ -4,7 +4,6 @@ import os.path
 import pickle
 
 import numpy as np
-from GraphTsetlinMachine.graphs import Graphs
 from GraphTsetlinMachine.tm import MultiClassGraphTsetlinMachine
 
 
