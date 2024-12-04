@@ -1,7 +1,9 @@
 import json
+import math
 import random
 from datetime import datetime
 
+from format import board_as_string
 from generate_training_data.util.check_winner import check_winner
 
 
@@ -15,17 +17,6 @@ class HexBoard:
         self.winner = None
         self.count = 0 # Current turn
 
-
-    def board_as_str(self):
-        print("Board len: " + str(len(self.board)))
-        board_str = f"Winner: {self.winner}\n"
-        for i in range(len(self.board)):
-            if i % self.size == 0 and i != 0:
-                board_str += "\n"
-
-            board_str += f"{str(self.board[i])} "
-
-        return board_str
 
     def make_board(self):
         return self._populate()
@@ -68,7 +59,7 @@ def generate_hex_games(size, count, split=False):
     boards = []
     for i in range(count):
         hexboard.make_board()
-        print(hexboard.board_as_str())
+        print(board_as_string(hexboard.board))
         print(hexboard.board_as_json())
         boards.append(hexboard.board_as_json())
 
