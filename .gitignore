@@ -1,3 +1,5 @@
-data
+data/granmo/**
+data/kaggle/**
+data/self/**
 log/eval/*
 log/train/*
