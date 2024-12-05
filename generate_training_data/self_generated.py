@@ -109,15 +109,18 @@ def board_as_string(board):
 
 
 # Moves left: Number of moves before the game is finished
-def generate_hex_games(size, count, moves_left=0, split=False):
+# randomize: Randomize number of missing pieces. Max count of pieces to remove
+def generate_hex_games(size, count, moves_left=0, split=False, randomize=0):
     hexboard = HexBoard(size, ["B", "W", "."])
 
     boards = []
     for i in range(count):
         hexboard.make_board()
 
-        if moves_left > 0:
+        if moves_left > 0 and randomize == 0:
             hexboard.remove_players(moves_left)
+        elif randomize > 0:
+            hexboard.remove_players(random.randint(1, randomize))
 
         print(board_as_string(hexboard.board))
         print(hexboard.board_as_json())
@@ -144,4 +147,4 @@ def generate_hex_games(size, count, moves_left=0, split=False):
             f.write(json.dumps({"result": boards}, indent=4))
 
 
-generate_hex_games(7, 1, moves_left=2, split=False)
+generate_hex_games(7, 100, moves_left=0, split=False, randomize=3)
