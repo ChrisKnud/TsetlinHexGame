@@ -61,6 +61,8 @@ print("Creating training data")
 
 hyperparams = ''
 for arg in args.__dict__.items(): hyperparams += str(arg)
+
+log_result(training_log_folder, f'data-used-{dt}', f"Training data: {train_path}\nTest data: {test_path}")
 log_result(training_log_folder, f'hyperparams-{dt}', hyperparams)
 
 # Create train data
