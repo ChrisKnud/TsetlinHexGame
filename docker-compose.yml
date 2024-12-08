@@ -1,0 +1,14 @@
+services:
+  tm:
+    build:
+      # Use my dockerfile
+      context: .
+      dockerfile: Dockerfile
+    command: nvidia-smi
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]

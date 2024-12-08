@@ -5,7 +5,7 @@
 - Teste med 2 trekk før spillet er ferdig
 - Teste med 3 trekk før spillet er ferdig
 - Leke med parametere
-
+- Gjøre start spiller random
 
 Current best parameters
 Alt standard untatt:
@@ -13,6 +13,10 @@ Number of examples 254
 
 Run training Kaggle: python make_training_data.py --data-format kaggle --split False --number-of-items 254
 
+Build docker compose
+docker-compose up
+Run doocker compose 
+docker-compose run --rm tm sh
 # Abbreviations
 ## GTM - Graph Tsetlin Machine
 
