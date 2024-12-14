@@ -1,5 +1,6 @@
 import json
 import math
+import os
 import random
 from datetime import datetime
 
@@ -128,7 +129,7 @@ def generate_hex_games(size, count, moves_left=0, split=False, randomize=0):
         print("Created boards: " + str(i))
     dt = datetime.now().strftime("%Y-%m-%d-%H%M%S")
 
-    path = f"D:\\Software_Development\\Artificial_Intellegence\\TsetlingMachine\\TsetlinHexGame\\data\\self"
+    path = os.path.join(os.environ["TRAINING_DATA_FOLDER"], "self") #f"D:\\Software_Development\\Artificial_Intellegence\\TsetlingMachine\\TsetlinHexGame\\data\\self"
 
     if split:
         split_pos = int(len(boards)/2)
