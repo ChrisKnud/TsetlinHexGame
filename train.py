@@ -164,7 +164,7 @@ for i in range(args.epochs):
 
 plot(plot_x, plot_y, x_label='Epoch', y_label='Accuracy (%)', title='Accuracy Test Data', path=os.path.join(training_log_folder, 'plot.png'))
 
-if args.args.use_multigraph_tm:
+if args.use_multigraph_tm:
     weights = tm.get_state()[1].reshape(2, -1)
     clauses = clauses_as_string(tm, weights, args.hypervector_size, args.message_size)
     log_result(training_log_folder, f'clauses-{dt}', clauses)
