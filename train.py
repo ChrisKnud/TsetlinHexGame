@@ -144,13 +144,15 @@ for i in range(args.epochs):
     else:
         tm.fit(graphs_train, Y_train)
 
+    result_train = 100 * (tm.predict(graphs_train) == Y_train).mean()
     stop_training = time()
 
     start_testing = time()
-    result_test = 100*(tm.predict(graphs_test) == Y_test).mean()
+    result_test = 100 * (tm.predict(graphs_test) == Y_test).mean()
     stop_testing = time()
 
-    result_train = 100*(tm.predict(graphs_train) == Y_train).mean()
+    print(f"Epoch {str(i)}: train result: {result_train}\n"
+          f"test result: {result_test}\n")
 
     log_data += "%d    %.2f    %.2f    %.2f    %.2f" % (i, result_train, result_test, stop_training - start_training, stop_testing - start_testing)
     log_data += f"\n\nTrain prediction: {tm.predict(graphs_train)}.\nTrue value: {Y_train}\n\nTest prediction: {tm.predict(graphs_test)}.\nTrue value: {Y_test}\n"
@@ -160,8 +162,6 @@ for i in range(args.epochs):
         plot_x.append(i)
         plot_y.append(result_test)
         log_data = ""
-        print(f"Epoch {str(i)}: train result: {result_train}\n"
-              f"test result: {result_test}\n")
 
 plot(plot_x, plot_y, x_label='Epoch', y_label='Accuracy (%)', title='Accuracy Test Data', path=os.path.join(training_log_folder, 'plot.png'))
 

@@ -114,7 +114,7 @@ def board_as_string(board):
 def generate_hex_games(size, count, moves_left=0, split=False, randomize=0):
     boards = []
     for i in range(count):
-        hexboard = HexBoard(size, ["B", "W", "."])
+        hexboard = HexBoard(size, ["B", "W", "E"])
         hexboard.make_board()
 
         if moves_left > 0 and randomize == 0:
@@ -145,4 +145,4 @@ def generate_hex_games(size, count, moves_left=0, split=False, randomize=0):
             f.write(json.dumps({"result": boards}, indent=4))
 
 
-generate_hex_games(3, 10000, moves_left=0, split=True, randomize=0)
+generate_hex_games(3, 100, moves_left=0, split=True, randomize=0)
