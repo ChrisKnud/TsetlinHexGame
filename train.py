@@ -160,7 +160,8 @@ for i in range(args.epochs):
         plot_x.append(i)
         plot_y.append(result_test)
         log_data = ""
-        print("Epoch: " + str(i))
+        print(f"Epoch {str(i)}: train result: {result_train}\n"
+              f"test result: {result_test}\n")
 
 plot(plot_x, plot_y, x_label='Epoch', y_label='Accuracy (%)', title='Accuracy Test Data', path=os.path.join(training_log_folder, 'plot.png'))
 

@@ -120,33 +120,29 @@ def generate_hex_games(size, count, moves_left=0, split=False, randomize=0):
         if moves_left > 0 and randomize == 0:
             hexboard.remove_players(moves_left)
         elif randomize > 0:
-            hexboard.remove_players(random.randint(1, randomize))
-
-        print(board_as_string(hexboard.board))
-        print(hexboard.board_as_json())
+            hexboard.remove_players(random.randint(0, randomize))
 
         boards.append(hexboard.board_as_json())
-        print("Created boards: " + str(i))
-
+        print(i)
     dt = datetime.now().strftime("%Y-%m-%d-%H%M%S")
-    board_width = int(math.sqrt(len(boards[0])))
+    board_width = int(math.sqrt(len(boards[0]["board"])))
 
-    path = os.path.join(os.environ["TRAINING_DATA_FOLDER"], "self") #f"D:\\Software_Development\\Artificial_Intellegence\\TsetlingMachine\\TsetlinHexGame\\data\\self"
-    print(path)
+    path = os.path.join(os.environ["TRAINING_DATA_FOLDER"], "self")
+
     if split:
         split_pos = int(len(boards)/2)
 
         train_data = {'result': boards[:split_pos]}
         test_data = {'result': boards[split_pos:]}
 
-        with open(f"{path}\\train-self-{board_width}-{int(len(boards)/2)}-{dt}.json", "w") as f:
+        with open(f"{path}\\train-self-{board_width}-{int(len(boards)/2)}-{moves_left}-{randomize}-{dt}.json", "w") as f:
             f.write(json.dumps(train_data, indent=4))
 
-        with open(f"{path}\\eval-self-{board_width}-{int(len(boards)/2)}-{dt}.json", "w") as f:
+        with open(f"{path}\\eval-self-{board_width}-{int(len(boards)/2)}-{moves_left}-{randomize}-{dt}.json", "w") as f:
             f.write(json.dumps(test_data, indent=4))
     else:
-        with open(f"{path}\\train-self-{board_width}-{int(len(boards))}-{dt}.json", "w") as f:
+        with open(f"{path}\\train-self-{board_width}-{int(len(boards))}-{moves_left}-{randomize}-{dt}.json", "w") as f:
             f.write(json.dumps({"result": boards}, indent=4))
 
 
-generate_hex_games(7, 508, moves_left=0, split=True, randomize=1)
+generate_hex_games(3, 10000, moves_left=0, split=True, randomize=0)
