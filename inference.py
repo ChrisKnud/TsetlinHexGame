@@ -35,7 +35,7 @@ graphs = Graphs(
 
 # Load Tsetlin Machine
 tm = load_tm(args.tm_path)
-tm.fit(graphs, )
+tm.predict(graphs)
 
 result = tm.predict(graphs)
 

@@ -4,7 +4,7 @@ import os.path
 from time import time
 from datetime import datetime
 from GraphTsetlinMachine.graphs import Graphs
-from GraphTsetlinMachine.tm import MultiClassGraphTsetlinMachine
+from GraphTsetlinMachine.tm import GraphTsetlinMachine, MultiClassGraphTsetlinMachine
 from format import init_graph, train_data_from_file, log_result, board_as_string, clauses_as_string, save_tm
 from plot import plot
 
@@ -31,6 +31,7 @@ eval_log_folder = os.path.join('.', 'log', 'eval', f'eval-{dt}') #  f'eval-{date
 # Graph settings
 def default_args(**kwargs):
     parser = argparse.ArgumentParser()
+    parser.add_argument("--use-multigraph-tm", default=False, type=bool)
     parser.add_argument("--epochs", default=1000, type=int)
     parser.add_argument("--number-of-clauses", default=60, type=int)
     parser.add_argument("--T", default=200, type=int)
@@ -94,17 +95,32 @@ Y_test = init_graph(
     data=x_test
 )
 
-tm = MultiClassGraphTsetlinMachine(
-    args.number_of_clauses,
-    args.T,
-    args.s,
-    depth=args.depth,
-    message_size=args.message_size,
-    message_bits=args.message_bits,
-    max_included_literals=args.max_included_literals,
-    grid=(16*13,1,1),
-    block=(128,1,1)
-)
+
+if args.use_multigraph_tm:
+    tm = MultiClassGraphTsetlinMachine(
+        args.number_of_clauses,
+        args.T,
+        args.s,
+        depth=args.depth,
+        message_size=args.message_size,
+        message_bits=args.message_bits,
+        max_included_literals=args.max_included_literals,
+        grid=(16*13,1,1),
+        block=(128,1,1)
+    )
+else:
+    tm = GraphTsetlinMachine(
+        args.number_of_clauses,
+        args.T,
+        args.s,
+        depth=args.depth,
+        message_size=args.message_size,
+        message_bits=args.message_bits,
+        max_included_literals=args.max_included_literals,
+        grid=(16 * 13, 1, 1),
+        block=(128, 1, 1)
+    )
+
 
 for i in range(len(x_train)):
     log_result(training_log_folder, f'boards-train-{dt}', f'{i} Winner: {x_train[i]["winner"]}\n{board_as_string(x_train[i]["board"])}')
@@ -122,7 +138,12 @@ log_data = ""
 
 for i in range(args.epochs):
     start_training = time()
-    tm.fit(graphs_train, Y_train, epochs=1, incremental=True)
+
+    if args.use_multigraph_tm:
+        tm.fit(graphs_train, Y_train, epochs=1, incremental=True)
+    else:
+        tm.fit(graphs_train, Y_train)
+
     stop_training = time()
 
     start_testing = time()
@@ -142,10 +163,11 @@ for i in range(args.epochs):
         print("Epoch: " + str(i))
 
 plot(plot_x, plot_y, x_label='Epoch', y_label='Accuracy (%)', title='Accuracy Test Data', path=os.path.join(training_log_folder, 'plot.png'))
-weights = tm.get_state()[1].reshape(2, -1)
 
-clauses = clauses_as_string(tm, weights, args.hypervector_size, args.message_size)
-log_result(training_log_folder, f'clauses-{dt}', clauses)
+if args.args.use_multigraph_tm:
+    weights = tm.get_state()[1].reshape(2, -1)
+    clauses = clauses_as_string(tm, weights, args.hypervector_size, args.message_size)
+    log_result(training_log_folder, f'clauses-{dt}', clauses)
 
 print(graphs_test.hypervectors)
 print(tm.hypervectors)
