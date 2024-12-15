@@ -1,7 +1,9 @@
+import csv
 import json
 import math
 import os.path
 import pickle
+from typing import List, Dict
 
 import numpy as np
 from GraphTsetlinMachine.tm import MultiClassGraphTsetlinMachine
@@ -265,3 +267,16 @@ def load_tm(path) -> MultiClassGraphTsetlinMachine:
     model.set_state(data['state'])
 
     return model
+
+
+def write_to_csv(path, data: List[Dict]) -> None:
+    if not os.path.exists(path):
+        with open(path, 'w', newline='') as csvfile:
+            print("Keys " + str(data[0].keys()))
+            csvwriter = csv.DictWriter(csvfile, fieldnames=data[0].keys())
+            csvwriter.writeheader()
+            csvwriter.writerows(data)
+    else:
+        with open(path, 'a', newline='') as csvfile:
+            csvwriter = csv.DictWriter(csvfile, fieldnames=data[0].keys())
+            csvwriter.writerows(data)

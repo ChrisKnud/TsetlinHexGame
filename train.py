@@ -5,7 +5,8 @@ from time import time
 from datetime import datetime
 from GraphTsetlinMachine.graphs import Graphs
 from GraphTsetlinMachine.tm import GraphTsetlinMachine, MultiClassGraphTsetlinMachine
-from format import init_graph, train_data_from_file, log_result, board_as_string, clauses_as_string, save_tm
+from format import init_graph, train_data_from_file, log_result, board_as_string, clauses_as_string, save_tm, \
+    write_to_csv
 from plot import plot
 
 # B = Black
@@ -45,6 +46,7 @@ def default_args(**kwargs):
     parser.add_argument("--noise", default=0.01, type=float)
     parser.add_argument("--number-of-examples", default=6, type=int)
     parser.add_argument("--number-of-eval-examples", default=6, type=int)
+    parser.add_argument("--moves-before-end", default=0, type=int)
     parser.add_argument("--number-of-classes", default=3, type=int)
     parser.add_argument("--max-sequence-length", default=10, type=int)
     parser.add_argument("--max-included-literals", default=4, type=int)
@@ -85,7 +87,7 @@ Y_train = init_graph(
     data=x_train
 )
 
-graphs_test = Graphs(args.number_of_examples, init_with=graphs_train)
+graphs_test = Graphs(args.number_of_eval_examples, init_with=graphs_train)
 
 Y_test = init_graph(
     graphs=graphs_test,
@@ -136,6 +138,10 @@ plot_x = []
 plot_y = []
 log_data = ""
 
+best_train_result = 0
+best_test_result = 0
+highest_train_time = 0
+highest_test_time = 0
 
 for i in range(args.epochs):
     start_training = time()
@@ -152,10 +158,22 @@ for i in range(args.epochs):
     result_test = 100 * (tm.predict(graphs_test) == Y_test).mean()
     stop_testing = time()
 
+    train_time = stop_training - start_training
+    test_time = stop_testing - start_testing
+
+    if result_train > best_train_result:
+        best_train_result = result_train
+    if result_test > best_test_result:
+        best_test_result = result_test
+    if train_time > highest_train_time:
+        highest_train_time = train_time
+    if test_time > highest_test_time:
+        highest_test_time = test_time
+
     print(f"Epoch {str(i)}: train result: {result_train}\n"
           f"test result: {result_test}\n")
 
-    log_data += "%d    %.2f    %.2f    %.2f    %.2f" % (i, result_train, result_test, stop_training - start_training, stop_testing - start_testing)
+    log_data += "%d    %.2f    %.2f    %.2f    %.2f" % (i, result_train, result_test, train_time, test_time)
     log_data += f"\n\nTrain prediction: {tm.predict(graphs_train)}.\nTrue value: {Y_train}\n\nTest prediction: {tm.predict(graphs_test)}.\nTrue value: {Y_test}\n"
 
     if i % args.log_interval == 0:
@@ -181,3 +199,11 @@ log_result(training_log_folder, f"test-edge-type-{dt}", str(graphs_test.edge_typ
 
 print('Saving Tsetlin Machine at: ' + str(os.path.join(training_log_folder, 'tm.pkl')))
 save_tm(tm, os.path.join(training_log_folder, 'tm.pkl'))
+
+#Write to csv
+gtm_type = "Multi" if args.use_multigraph_tm else "Single"
+csv_data = [
+    {"GTM Type": gtm_type, "Board Size": BOARD_WIDTH, "Game State": args.moves_before_end, "Train Dataset": train_path, "Test Dataset": test_path, "Log Folder": training_log_folder, "#Examples": args.number_of_examples, "Epochs": args.number_of_epochs, "#Clauses": args.number_of_clauses, "T": args.T, "s": args.s, "Train Accuracy": best_train_result, "Test Accuracy": best_test_result, "Train Time": highest_train_time, "Test Time": highest_test_time},
+]
+
+write_to_csv("", csv_data)
