@@ -44,6 +44,7 @@ def default_args(**kwargs):
     parser.add_argument('--double-hashing', dest='double_hashing', default=False, action='store_true')
     parser.add_argument("--noise", default=0.01, type=float)
     parser.add_argument("--number-of-examples", default=6, type=int)
+    parser.add_argument("--number-of-eval-examples", default=6, type=int)
     parser.add_argument("--number-of-classes", default=3, type=int)
     parser.add_argument("--max-sequence-length", default=10, type=int)
     parser.add_argument("--max-included-literals", default=4, type=int)
@@ -88,7 +89,7 @@ graphs_test = Graphs(args.number_of_examples, init_with=graphs_train)
 
 Y_test = init_graph(
     graphs=graphs_test,
-    number_of_examples=args.number_of_examples,
+    number_of_examples=args.number_of_eval_examples,
     number_of_classes=args.number_of_classes,
     noise=args.noise,
     board_width=BOARD_WIDTH,
