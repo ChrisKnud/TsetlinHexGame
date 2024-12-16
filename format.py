@@ -280,3 +280,27 @@ def write_to_csv(path, data: List[Dict]) -> None:
         with open(path, 'a', newline='') as csvfile:
             csvwriter = csv.DictWriter(csvfile, fieldnames=data[0].keys())
             csvwriter.writerows(data)
+
+
+
+def check_for_bridge(graph, node_id, board_width, empty_symbol):
+    offset_long = (board_width + 1) # Offset to piece furthest away
+    offset_short = (board_width - 2) # Offset to piece closest away
+
+    # Top left, Top right, left, right, bottom left, bottom right
+    bridge_nodes = [node_id - offset_long,
+                    node_id - offset_short,
+                    node_id - 2,
+                    node_id + 2,
+                    node_id + offset_long,
+                    node_id + offset_short
+                    ]
+
+    for bridge_node in bridge_nodes:
+        if (0 <= bridge_node < board_width**2
+                and graph['board'][node_id] == graph['board'][bridge_node]
+                and graph['board'][bridge_node] != empty_symbol):
+            #print(f"graph['board'][node_id]: {graph['board'][node_id]}\ngraph['board'][bridge_node]: {graph['board'][bridge_node]}")
+            return bridge_node
+
+    return None

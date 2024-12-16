@@ -16,6 +16,7 @@ SYMBOLS = ['B', 'W', 'E']
 
 train_path = os.path.join('.', 'data', 'train-22x222024-10-18-22:07:06.774696.json')
 test_path = os.path.join('.', 'data', 'eval-22x222024-10-18-22:07:06.774696.json')
+csv_path = os.path.join('.', 'data', 'results.csv')
 
 x_train = train_data_from_file(train_path)['result']
 x_test = train_data_from_file(test_path)['result']
@@ -143,6 +144,8 @@ best_test_result = 0
 highest_train_time = 0
 highest_test_time = 0
 
+total_start_time = time()
+
 for i in range(args.epochs):
     start_training = time()
 
@@ -182,6 +185,8 @@ for i in range(args.epochs):
         plot_y.append(result_test)
         log_data = ""
 
+total_end_time = time()
+
 plot(plot_x, plot_y, x_label='Epoch', y_label='Accuracy (%)', title='Accuracy Test Data', path=os.path.join(training_log_folder, 'plot.png'))
 
 if args.use_multigraph_tm:
@@ -203,7 +208,7 @@ save_tm(tm, os.path.join(training_log_folder, 'tm.pkl'))
 #Write to csv
 gtm_type = "Multi" if args.use_multigraph_tm else "Single"
 csv_data = [
-    {"GTM Type": gtm_type, "Board Size": BOARD_WIDTH, "Game State": args.moves_before_end, "Train Dataset": train_path, "Test Dataset": test_path, "Log Folder": training_log_folder, "#Examples": args.number_of_examples, "Epochs": args.number_of_epochs, "#Clauses": args.number_of_clauses, "T": args.T, "s": args.s, "Train Accuracy": best_train_result, "Test Accuracy": best_test_result, "Train Time": highest_train_time, "Test Time": highest_test_time},
+    {"GTM Type": gtm_type, "Board Size": BOARD_WIDTH, "Game State": args.moves_before_end, "Train Dataset": train_path, "Test Dataset": test_path, "Log Folder": training_log_folder, "#Examples": args.number_of_examples, "Epochs": args.epochs, "#Clauses": args.number_of_clauses, "T": args.T, "s": args.s, "Train Accuracy": best_train_result, "Test Accuracy": best_test_result, "Train Time": highest_train_time, "Test Time": highest_test_time, "Total Time": total_end_time - total_start_time},
 ]
 
-write_to_csv("", csv_data)
+write_to_csv(csv_path, csv_data)
