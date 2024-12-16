@@ -137,6 +137,8 @@ def init_graph(graphs, number_of_examples, number_of_classes, noise, board_width
                             print(f"Winner node: {data[graph_id]['board'][node_id]}")
                             print(f"Node {node_id} and {destination_node_id} Connected")
                             graphs.add_graph_node_edge(graph_id, node_id, destination_node_id, 'Connected')
+                        elif check_for_bridge(data[graph_id]['board'][node_id]) is not None:
+                            graphs.add_graph_node_edge(graph_id, node_id, board_width, 'Bridge')
                         else:
                             print(f"Node {node_id} and {destination_node_id} NOT connected")
                             graphs.add_graph_node_edge(graph_id, node_id, destination_node_id, 'NOT Connected')
