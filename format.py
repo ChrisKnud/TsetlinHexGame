@@ -29,8 +29,9 @@ def get_number_of_edges(board, node_id, board_width, empty_symbol):
         case _:
             return exit(-1)
 
-    if len(get_bridge_ids(board, node_id, board_width, empty_symbol)) > 0:
-        return number_of_edges + 1
+    bridge_ids = get_bridge_ids(board, node_id, board_width, empty_symbol)
+    if len(bridge_ids) > 0:
+        return number_of_edges + len(bridge_ids)
 
     return number_of_edges
 

@@ -17,7 +17,7 @@ SYMBOLS = ['B', 'W', 'E']
 
 train_path = os.path.join('.', 'data', 'train-22x222024-10-18-22:07:06.774696.json')
 test_path = os.path.join('.', 'data', 'eval-22x222024-10-18-22:07:06.774696.json')
-csv_path = os.path.join('.', 'data', 'results.csv')
+csv_path = os.path.join('.', 'log', 'results_bridge.csv')
 
 x_train = train_data_from_file(train_path)['result']
 x_test = train_data_from_file(test_path)['result']
@@ -83,6 +83,8 @@ graphs_train = Graphs(
 draw_simple_graph(graphs_train, 1, './log/graph.png')
 show_graph_nodes(graphs_train, 1)
 show_graph_edges(graphs_train, 1)
+
+graphs_train.print_graph(1)
 
 Y_train = init_graph(
     graphs=graphs_train,
@@ -184,8 +186,11 @@ for i in range(args.epochs):
 
     print(f"Epoch {str(i)}: train result: {result_train}\n"
           f"test result: {result_test}\n"
-          f"Weights: {weights}\n"
-          f"{clauses_as_string(tm, weights, args.hypervector_size, args.message_size)}")
+          f"Weights: {weights}\n")
+          #f"{clauses_as_string(tm, weights, args.hypervector_size, args.message_size)}")
+
+    print("Weights[0]: " + str(sum(weights[0])))
+    print("Weights[1]: " + str(sum(weights[1])))
 
     log_data += "%d    %.2f    %.2f    %.2f    %.2f" % (i, result_train, result_test, train_time, test_time)
     log_data += f"\n\nTrain prediction: {tm.predict(graphs_train)}.\nTrue value: {Y_train}\n\nTest prediction: {tm.predict(graphs_test)}.\nTrue value: {Y_test}\n"
