@@ -8,6 +8,7 @@ from GraphTsetlinMachine.tm import GraphTsetlinMachine, MultiClassGraphTsetlinMa
 from format import init_graph, train_data_from_file, log_result, board_as_string, clauses_as_string, save_tm, \
     write_to_csv
 from plot import plot
+from utils.helper_functions import draw_simple_graph, show_graph_nodes, show_graph_edges
 
 # B = Black
 # W = White
@@ -79,13 +80,18 @@ graphs_train = Graphs(
     double_hashing = args.double_hashing
 )
 
+draw_simple_graph(graphs_train, 1, './log/graph.png')
+show_graph_nodes(graphs_train, 1)
+show_graph_edges(graphs_train, 1)
+
 Y_train = init_graph(
     graphs=graphs_train,
     number_of_examples=args.number_of_examples,
     number_of_classes=args.number_of_classes,
     noise=args.noise,
     board_width=BOARD_WIDTH,
-    data=x_train
+    data=x_train,
+    empty_symbol=SYMBOLS[2]
 )
 
 graphs_test = Graphs(args.number_of_eval_examples, init_with=graphs_train)
@@ -96,7 +102,8 @@ Y_test = init_graph(
     number_of_classes=args.number_of_classes,
     noise=args.noise,
     board_width=BOARD_WIDTH,
-    data=x_test
+    data=x_test,
+    empty_symbol=SYMBOLS[2]
 )
 
 
@@ -173,8 +180,12 @@ for i in range(args.epochs):
     if test_time > highest_test_time:
         highest_test_time = test_time
 
+    weights = tm.get_state()[1].reshape(2, -1)
+
     print(f"Epoch {str(i)}: train result: {result_train}\n"
-          f"test result: {result_test}\n")
+          f"test result: {result_test}\n"
+          f"Weights: {weights}\n"
+          f"{clauses_as_string(tm, weights, args.hypervector_size, args.message_size)}")
 
     log_data += "%d    %.2f    %.2f    %.2f    %.2f" % (i, result_train, result_test, train_time, test_time)
     log_data += f"\n\nTrain prediction: {tm.predict(graphs_train)}.\nTrue value: {Y_train}\n\nTest prediction: {tm.predict(graphs_test)}.\nTrue value: {Y_test}\n"

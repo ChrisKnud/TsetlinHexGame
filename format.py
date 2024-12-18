@@ -73,7 +73,7 @@ def get_node_type(node_id, board_width):
         return 'Default'
 
 
-def init_graph(graphs, number_of_examples, number_of_classes, noise, board_width, data):
+def init_graph(graphs, number_of_examples, number_of_classes, noise, board_width, data, empty_symbol):
     for graph_id in range(number_of_examples):
         graphs.set_number_of_graph_nodes(graph_id, board_width * board_width)
 
@@ -137,7 +137,7 @@ def init_graph(graphs, number_of_examples, number_of_classes, noise, board_width
                             print(f"Winner node: {data[graph_id]['board'][node_id]}")
                             print(f"Node {node_id} and {destination_node_id} Connected")
                             graphs.add_graph_node_edge(graph_id, node_id, destination_node_id, 'Connected')
-                        elif check_for_bridge(data[graph_id]['board'][node_id]) is not None:
+                        elif check_for_bridge(data[graph_id]['board'], node_id, board_width, empty_symbol) is not None:
                             graphs.add_graph_node_edge(graph_id, node_id, board_width, 'Bridge')
                         else:
                             print(f"Node {node_id} and {destination_node_id} NOT connected")
@@ -285,7 +285,7 @@ def write_to_csv(path, data: List[Dict]) -> None:
 
 
 
-def check_for_bridge(graph, node_id, board_width, empty_symbol):
+def check_for_bridge(board, node_id, board_width, empty_symbol):
     offset_long = (board_width + 1) # Offset to piece furthest away
     offset_short = (board_width - 2) # Offset to piece closest away
 
@@ -300,8 +300,8 @@ def check_for_bridge(graph, node_id, board_width, empty_symbol):
 
     for bridge_node in bridge_nodes:
         if (0 <= bridge_node < board_width**2
-                and graph['board'][node_id] == graph['board'][bridge_node]
-                and graph['board'][bridge_node] != empty_symbol):
+                and board[node_id] == board[bridge_node]
+                and board[bridge_node] != empty_symbol):
             #print(f"graph['board'][node_id]: {graph['board'][node_id]}\ngraph['board'][bridge_node]: {graph['board'][bridge_node]}")
             return bridge_node
 

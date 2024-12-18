@@ -50,7 +50,7 @@ class HexBoard:
                     index = random.randint(0, len(self.board) - 1)
 
                 self.board[index] = self.symbols[2]
-                print(f"player {player} on index {index} set to {self.symbols[2]}")
+                #print(f"player {player} on index {index} set to {self.symbols[2]}")
                 player = 1
                 continue
 
@@ -61,7 +61,7 @@ class HexBoard:
                     index = random.randint(0, len(self.board) - 1)
 
                 self.board[index] = self.symbols[2]
-                print(f"player {player} on index {index} set to {self.symbols[2]}")
+                #print(f"player {player} on index {index} set to {self.symbols[2]}")
                 player = 0
                 continue
 
@@ -145,4 +145,4 @@ def generate_hex_games(size, count, moves_left=0, split=False, randomize=0):
             f.write(json.dumps({"result": boards}, indent=4))
 
 
-generate_hex_games(3, 100, moves_left=0, split=True, randomize=0)
+generate_hex_games(11, 1000, moves_left=0, split=False, randomize=5)

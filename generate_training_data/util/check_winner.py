@@ -20,6 +20,7 @@ def check_winner(board, size):
     """
     visited = set()
 
+    winner = []
     def dfs(index, player, goal_check):
         if goal_check(index):
             return True
@@ -47,12 +48,17 @@ def check_winner(board, size):
     for x in range(size):
         if board[x * size] == 'B':  # Start on left edge
             if dfs(x * size, 'B', lambda idx: idx % size == size - 1):  # Goal is reaching right edge
-                return 'B'
+                winner.append('B')
 
     # Check for White ('W') (Top to Bottom)
     for y in range(size):
         if board[y] == 'W':  # Start on top edge
             if dfs(y, 'W', lambda idx: idx // size == size - 1):  # Goal is reaching bottom edge
-                return 'W'
+                winner.append('W')
 
-    return None  # No winner yet
+    # Return a winner only if there is one
+    if len(winner) == 1:
+        return winner[0]
+    else:
+        return None
+
