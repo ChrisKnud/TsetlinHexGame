@@ -14,20 +14,25 @@ def add_hex_edges(graphs, graph_id, node_id, destination_node_ids):
         graphs.add_graph_node_edge(graph_id, node_id, id, 'Connected')
 
 
-def get_number_of_edges(node_id, board_width):
+def get_number_of_edges(board, node_id, board_width, empty_symbol):
     node_type = get_node_type(node_id, board_width)
 
     match node_type:
         case 'TopLeft' | 'BottomRight':
-            return 2
+            number_of_edges = 2
         case 'TopRight' | 'BottomLeft':
-            return 3
+            number_of_edges = 3
         case '1stRow' | 'LastRow' | '1stColumn' | 'LastColumn':
-            return 4
+            number_of_edges = 4
         case 'Default':
-            return 6
+            number_of_edges = 6
         case _:
             return exit(-1)
+
+    if len(get_bridge_ids(board, node_id, board_width, empty_symbol)) > 0:
+        return number_of_edges + 1
+
+    return number_of_edges
 
 
 """
@@ -73,75 +78,80 @@ def get_node_type(node_id, board_width):
         return 'Default'
 
 
+def get_connected_nodes_ids(node_type, node_id, board_width):
+    match node_type:
+        case 'TopLeft':
+            return [node_id + 1, node_id + board_width]
+        case 'TopRight':
+            return [node_id - 1, node_id + board_width - 1, node_id + board_width]
+        case 'BottomLeft':
+            return [node_id + 1, node_id - board_width - 1, node_id - board_width]
+        case 'BottomRight':
+            return [node_id - 1, node_id - board_width]
+        case '1stRow':
+            return [node_id - 1, node_id + 1, node_id + board_width - 1, node_id + board_width]
+        case 'LastRow':
+            return [node_id - 1, node_id + 1, node_id - board_width + 1, node_id - board_width]
+        case '1stColumn':
+            return [node_id + 1, node_id + board_width, node_id - board_width + 1,
+                               node_id - board_width]
+        case 'LastColumn':
+            return [node_id - 1, node_id - board_width, node_id + board_width - 1,
+                               node_id + board_width]
+        case 'Default':
+            return [node_id + 1, node_id - 1, node_id - board_width, node_id - board_width + 1,
+                               node_id + board_width - 1, node_id + board_width]
+        case _:
+            return None
+
 def init_graph(graphs, number_of_examples, number_of_classes, noise, board_width, data, empty_symbol):
     for graph_id in range(number_of_examples):
         graphs.set_number_of_graph_nodes(graph_id, board_width * board_width)
 
-    print("number of graph nodes: ", board_width * board_width)
-
     graphs.prepare_node_configuration()
 
     for graph_id in range(number_of_examples):
-        print(f"\n\nGraph: {graph_id}")
         for node_id in range(graphs.number_of_graph_nodes[graph_id]):
-            number_of_edges = get_number_of_edges(node_id, board_width)
-            print(f"Node ({node_id}) edges: {number_of_edges}")
+            number_of_edges = get_number_of_edges(data[graph_id]["board"], node_id, board_width, empty_symbol)
+            print(f"id {node_id}: {number_of_edges}")
             graphs.add_graph_node(graph_id, node_id, number_of_edges)
-            print("Number of edges: ", number_of_edges)
+
     graphs.prepare_edge_configuration()
 
     Y_train = np.empty(number_of_examples, dtype=np.uint32)
 
     for graph_id in range(number_of_examples):
-        print(f"\n\nGraph: {graph_id}")
         for node_id in range(graphs.number_of_graph_nodes[graph_id]):
             node_type = get_node_type(node_id, board_width)
-
-            match node_type:
-                case 'TopLeft':
-                    connected_nodes = [node_id + 1, node_id + board_width]
-                case 'TopRight':
-                    connected_nodes = [node_id - 1, node_id + board_width - 1, node_id + board_width]
-                case 'BottomLeft':
-                    connected_nodes = [node_id + 1, node_id - board_width - 1, node_id - board_width]
-                case 'BottomRight':
-                    connected_nodes = [node_id - 1, node_id - board_width]
-                case '1stRow':
-                    connected_nodes = [node_id - 1, node_id + 1, node_id + board_width - 1, node_id + board_width]
-                case 'LastRow':
-                    connected_nodes = [node_id - 1, node_id + 1, node_id - board_width + 1, node_id - board_width]
-                case '1stColumn':
-                    connected_nodes = [node_id + 1, node_id + board_width, node_id - board_width + 1,
-                                       node_id - board_width]
-                case 'LastColumn':
-                    connected_nodes = [node_id - 1, node_id - board_width, node_id + board_width - 1,
-                                       node_id + board_width]
-                case 'Default':
-                    connected_nodes = [node_id + 1, node_id - 1, node_id - board_width, node_id - board_width + 1,
-                                       node_id + board_width, node_id + board_width + 1]
-                case _:
-                    connected_nodes = None
+            connected_nodes = get_connected_nodes_ids(node_type, node_id, board_width)
 
             try:
-                print("Symbol")
-                print(data[graph_id]['board'][node_id])
-
                 symbol = data[graph_id]['board'][node_id]
                 graphs.add_graph_node_property(graph_id, node_id, symbol)
+                bridge_node_ids = get_bridge_ids(data[graph_id]['board'], node_id, board_width, empty_symbol)
+                bridged_nodes = set()
 
                 if connected_nodes is not None:
-                    print(f"Node type: {node_type}")
+                    print(f"connected nodes {connected_nodes}")
                     for destination_node_id in connected_nodes:
-                        print(f"Adding edge ({node_id}): {destination_node_id}")
-                        if data[graph_id]['board'][node_id] == data[graph_id]['board'][destination_node_id]:
-                            print(f"Winner node: {data[graph_id]['board'][node_id]}")
-                            print(f"Node {node_id} and {destination_node_id} Connected")
+                        # Add 'Connected' edge if nodes are occupied by the same player
+                        if data[graph_id]['board'][node_id] == data[graph_id]['board'][destination_node_id] and data[graph_id]['board'][node_id] != empty_symbol:
+                            print(f"id {node_id}->{destination_node_id}:Connected")
                             graphs.add_graph_node_edge(graph_id, node_id, destination_node_id, 'Connected')
-                        elif check_for_bridge(data[graph_id]['board'], node_id, board_width, empty_symbol) is not None:
-                            graphs.add_graph_node_edge(graph_id, node_id, board_width, 'Bridge')
-                        else:
-                            print(f"Node {node_id} and {destination_node_id} NOT connected")
+
+                        # Add 'Bridge' edge if nodes form a bridge pattern
+                        for bridge_node_id in bridge_node_ids:
+                            if (node_id, bridge_node_id) not in list(bridged_nodes):
+                                print(f"id {node_id}->{bridge_node_id}:Bridge")
+                                graphs.add_graph_node_edge(graph_id, node_id, bridge_node_id, 'Bridge')
+                                bridged_nodes.add((node_id, bridge_node_id))
+
+                        # Add 'NOT Connected' edge if nodes are not occupied by the same player
+                        if data[graph_id]['board'][node_id] != data[graph_id]['board'][destination_node_id] or data[graph_id]['board'][node_id] == empty_symbol:
+                            print(f"id {node_id}->{destination_node_id}:NOT Connected")
                             graphs.add_graph_node_edge(graph_id, node_id, destination_node_id, 'NOT Connected')
+
+
                 else:
                     print("Connected nodes is 1.")
                     exit(-1)
@@ -284,25 +294,20 @@ def write_to_csv(path, data: List[Dict]) -> None:
             csvwriter.writerows(data)
 
 
+def get_bridge_ids(board, node_id, board_width, empty_symbol):
+    node_type = get_node_type(node_id, board_width)
 
-def check_for_bridge(board, node_id, board_width, empty_symbol):
-    offset_long = (board_width + 1) # Offset to piece furthest away
-    offset_short = (board_width - 2) # Offset to piece closest away
+    neighbouring_node_ids = get_connected_nodes_ids(node_type, node_id, board_width)
 
-    # Top left, Top right, left, right, bottom left, bottom right
-    bridge_nodes = [node_id - offset_long,
-                    node_id - offset_short,
-                    node_id - 2,
-                    node_id + 2,
-                    node_id + offset_long,
-                    node_id + offset_short
-                    ]
+    bridging_node_ids = set()
 
-    for bridge_node in bridge_nodes:
-        if (0 <= bridge_node < board_width**2
-                and board[node_id] == board[bridge_node]
-                and board[bridge_node] != empty_symbol):
-            #print(f"graph['board'][node_id]: {graph['board'][node_id]}\ngraph['board'][bridge_node]: {graph['board'][bridge_node]}")
-            return bridge_node
+    for neigbouring_id in neighbouring_node_ids:
+        if board[neigbouring_id] == empty_symbol:
+            neigbouring_node_type = get_node_type(neigbouring_id, board_width)
+            bridge_node_ids = get_connected_nodes_ids(neigbouring_node_type, neigbouring_id, board_width)
 
-    return None
+            for bridge_node_id in bridge_node_ids:
+                if board[node_id] == board[bridge_node_id] and node_id != bridge_node_id and bridge_node_id not in neighbouring_node_ids:
+                    bridging_node_ids.add(bridge_node_id)
+
+    return list(bridging_node_ids)
