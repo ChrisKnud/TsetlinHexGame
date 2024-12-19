@@ -12,7 +12,8 @@ def kaggle_hex_to_train(number_of_items: int = 254, split: bool = True):
     WHITE = '-1'
     NONE = '0'
 
-    path = os.path.join('D:\\Software_Development\\Artificial_Intellegence\\Datasets\\Hex', "hex_games_1_000_000_size_7.csv")
+    training_folder = os.environ["TRAINING_DATA_FOLDER"]
+    path = os.path.join(training_folder, "kaggle", "hex_games_1_000_000_size_7.csv")
 
     dt = datetime.now().strftime("%Y-%m-%d-%H%M%S")
 

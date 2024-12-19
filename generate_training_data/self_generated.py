@@ -67,20 +67,23 @@ class HexBoard:
 
 
     def _populate(self):
-        populated_pos = []
+        populated_pos = set()
         finished = False
+
+        player = random.randint(0, 1)
+        is_player_1 = player == 0
 
         while not finished:
             index = random.randint(0, len(self.board) - 1)
 
-            while self.board[index] in populated_pos:
+            while index in populated_pos:
                 index = random.randint(0, len(self.board) - 1)
 
-            populated_pos.append(index-1)
+            populated_pos.add(index)
 
             # count != len(board) to mitigate a player
             # having two more pieces when the game is finished
-            if self.count % 2 == 0 and self.count != len(self.board) - 1:
+            if is_player_1:
                 self.board[index] = self.symbols[0]
             else:
                 self.board[index] = self.symbols[1]
@@ -88,10 +91,11 @@ class HexBoard:
             self.count += 1
 
             winner = check_winner(self.board, self.size)
-
-            if check_winner(self.board, self.size) is not None:
+            if winner is not None:
                 self.winner = winner
                 finished = True
+            else:
+                is_player_1 = not is_player_1
 
 
 def board_as_string(board):
@@ -127,7 +131,7 @@ def generate_hex_games(size, count, moves_left=0, split=False, randomize=0):
     dt = datetime.now().strftime("%Y-%m-%d-%H%M%S")
     board_width = int(math.sqrt(len(boards[0]["board"])))
 
-    path = os.path.join(os.environ["TRAINING_DATA_FOLDER"], "self")
+    path = os.path.join("data", "self")
 
     if split:
         split_pos = int(len(boards)/2)
@@ -135,14 +139,14 @@ def generate_hex_games(size, count, moves_left=0, split=False, randomize=0):
         train_data = {'result': boards[:split_pos]}
         test_data = {'result': boards[split_pos:]}
 
-        with open(f"{path}\\train-self-{board_width}-{int(len(boards)/2)}-{moves_left}-{randomize}-{dt}.json", "w") as f:
+        with open(os.path.join(path, f"train-self-{board_width}-{int(len(boards)/2)}-{moves_left}-{randomize}-{dt}.json"), "w") as f:
             f.write(json.dumps(train_data, indent=4))
 
-        with open(f"{path}\\eval-self-{board_width}-{int(len(boards)/2)}-{moves_left}-{randomize}-{dt}.json", "w") as f:
+        with open(os.path.join(path, f"eval-self-{board_width}-{int(len(boards)/2)}-{moves_left}-{randomize}-{dt}.json"), "w") as f:
             f.write(json.dumps(test_data, indent=4))
     else:
-        with open(f"{path}\\train-self-{board_width}-{int(len(boards))}-{moves_left}-{randomize}-{dt}.json", "w") as f:
+        with open(os.path.join(path, f"train-self-{board_width}-{int(len(boards))}-{moves_left}-{randomize}-{dt}.json"), "w") as f:
             f.write(json.dumps({"result": boards}, indent=4))
 
 
-generate_hex_games(11, 1000, moves_left=0, split=False, randomize=5)
+generate_hex_games(3, 5, moves_left=0, split=False, randomize=0)
