@@ -14,7 +14,7 @@ class HexBoard:
     def __init__(self, size, symbols):
         self.size = size
         self.symbols = symbols
-        self.board = [symbols[2] for _ in range(size**2)]
+        self.board = [self.symbols[2] for _ in range(self.size ** 2)]
         self.winner = None
         self.count = 0 # Current turn
 
@@ -67,22 +67,21 @@ class HexBoard:
 
 
     def _populate(self):
-        populated_pos = set()
+        available_positions = list(range(len(self.board)))
         finished = False
 
         player = random.randint(0, 1)
         is_player_1 = player == 0
 
         while not finished:
-            index = random.randint(0, len(self.board) - 1)
+            if not available_positions:
+                print("No winner, clearing board.")
+                self.board.clear()
+                available_positions = self._reset_board()
 
-            while index in populated_pos:
-                index = random.randint(0, len(self.board) - 1)
+            index = random.choice(available_positions)
+            available_positions.remove(index)
 
-            populated_pos.add(index)
-
-            # count != len(board) to mitigate a player
-            # having two more pieces when the game is finished
             if is_player_1:
                 self.board[index] = self.symbols[0]
             else:
@@ -97,6 +96,9 @@ class HexBoard:
             else:
                 is_player_1 = not is_player_1
 
+    def _reset_board(self):
+        self.board = [self.symbols[2] for _ in range(self.size ** 2)]
+        return list(range(len(self.board)))
 
 def board_as_string(board):
     board_width = int(math.sqrt(len(board)))
