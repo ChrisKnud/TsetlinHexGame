@@ -114,7 +114,6 @@ def init_graph(graphs, number_of_examples, number_of_classes, noise, board_width
     for graph_id in range(number_of_examples):
         for node_id in range(graphs.number_of_graph_nodes[graph_id]):
             number_of_edges = get_number_of_edges(data[graph_id]["board"], node_id, board_width, empty_symbol)
-            print(f"id {node_id}: {number_of_edges}")
             graphs.add_graph_node(graph_id, node_id, number_of_edges)
 
     graphs.prepare_edge_configuration()
@@ -133,23 +132,19 @@ def init_graph(graphs, number_of_examples, number_of_classes, noise, board_width
                 bridged_nodes = set()
 
                 if connected_nodes is not None:
-                    print(f"connected nodes {connected_nodes}")
                     for destination_node_id in connected_nodes:
                         # Add 'Connected' edge if nodes are occupied by the same player
                         if data[graph_id]['board'][node_id] == data[graph_id]['board'][destination_node_id] and data[graph_id]['board'][node_id] != empty_symbol:
-                            print(f"id {node_id}->{destination_node_id}:Connected")
                             graphs.add_graph_node_edge(graph_id, node_id, destination_node_id, 'Connected')
 
                         # Add 'Bridge' edge if nodes form a bridge pattern
                         for bridge_node_id in bridge_node_ids:
                             if (node_id, bridge_node_id) not in list(bridged_nodes):
-                                print(f"id {node_id}->{bridge_node_id}:Bridge")
                                 graphs.add_graph_node_edge(graph_id, node_id, bridge_node_id, 'Bridge')
                                 bridged_nodes.add((node_id, bridge_node_id))
 
                         # Add 'NOT Connected' edge if nodes are not occupied by the same player
                         if data[graph_id]['board'][node_id] != data[graph_id]['board'][destination_node_id] or data[graph_id]['board'][node_id] == empty_symbol:
-                            print(f"id {node_id}->{destination_node_id}:NOT Connected")
                             graphs.add_graph_node_edge(graph_id, node_id, destination_node_id, 'NOT Connected')
 
 
@@ -164,17 +159,8 @@ def init_graph(graphs, number_of_examples, number_of_classes, noise, board_width
 
         print("Y train: " + str(Y_train[graph_id]))
 
-        node_id = np.random.randint(Y_train[graph_id], graphs.number_of_graph_nodes[graph_id])
-
-        # Add extra influence to the winner, increases training accuracy
-        for node_pos in range(Y_train[graph_id] + 1):
-            if Y_train[graph_id] == 0:
-                graphs.add_graph_node_property(graph_id, node_id - node_pos, 'B')
-            else:
-                graphs.add_graph_node_property(graph_id, node_id - node_pos, 'W')
-
         if np.random.rand() <= noise:
-            Y_train[graph_id] = np.random.choice(np.setdiff1d(np.arange(number_of_classes), [Y_train[graph_id]]))
+            Y_train[graph_id] = 1 if Y_train[graph_id] == 0 else 0
 
     graphs.encode()
 

@@ -12,6 +12,8 @@ def default_args(**kwargs):
     parser.add_argument("--split", default=True, type=bool, help="Whether to split training data or not")
     parser.add_argument("--number-of-items", default=1000, type=int, help="Number of trainnig examples to convert when using the kaggle dataset")
     parser.add_argument("--board-size", default=7, type=int, help="Width/Height of the game board")
+    parser.add_argument("--moves-left", default=0, type=int, help="Number of moves left before the game is finished")
+    parser.add_argument("--randomize", default=0, type=int, help="Randomize number of moves left before the game is finished")
 
     args = parser.parse_args()
     for key, value in kwargs.items():
@@ -27,4 +29,4 @@ if args.data_format == 'granmo':
 elif args.data_format == 'kaggle':
     kaggle_hex_to_train(number_of_items=args.number_of_items, split=args.split)
 elif args.data_format == 'self':
-    generate_hex_games(count=args.number_of_items, size=args.board_size, split=args.split)
+    generate_hex_games(count=args.number_of_items, size=args.board_size, split=args.split, moves_left=args.moves_left, randomize=args.randomize)

@@ -15,21 +15,9 @@ from utils.helper_functions import draw_simple_graph, show_graph_nodes, show_gra
 # E = Empty
 SYMBOLS = ['B', 'W', 'E']
 
-train_path = os.path.join('.', 'data', 'train-22x222024-10-18-22:07:06.774696.json')
-test_path = os.path.join('.', 'data', 'eval-22x222024-10-18-22:07:06.774696.json')
+train_path = os.path.join('.', 'data', 'self', 'training_data.json')
+test_path = os.path.join('.', 'data', 'self', 'eval_data.json')
 csv_path = os.path.join('.', 'log', 'results_bridge.csv')
-
-x_train = train_data_from_file(train_path)['result']
-x_test = train_data_from_file(test_path)['result']
-
-
-# Hex settings
-BOARD_WIDTH = int(math.sqrt(len(x_train[0]['board'])))
-print("Board width: " + str(BOARD_WIDTH))
-
-dt = str(datetime.now()).replace(' ', '')
-training_log_folder = os.path.join('.', 'log', 'train', f'train-{dt}') # f'train-{datetime.now()}.log'
-eval_log_folder = os.path.join('.', 'log', 'eval', f'eval-{dt}') #  f'eval-{datetime.now()}.log'
 
 # Graph settings
 def default_args(**kwargs):
@@ -68,6 +56,18 @@ print("Creating training data")
 hyperparams = ''
 for arg in args.__dict__.items(): hyperparams += str(arg)
 
+x_train = train_data_from_file(train_path)['result']
+x_test = train_data_from_file(test_path)['result']
+
+
+# Hex settings
+BOARD_WIDTH = int(math.sqrt(len(x_train[0]['board'])))
+print("Board width: " + str(BOARD_WIDTH))
+
+dt = str(datetime.now()).replace(' ', '')
+training_log_folder = os.path.join('.', 'log', 'train', f'train-{dt}')
+eval_log_folder = os.path.join('.', 'log', 'eval', f'eval-{dt}')
+
 log_result(training_log_folder, f'data-used-{dt}', f"Training data: {train_path}\nTest data: {test_path}")
 log_result(training_log_folder, f'hyperparams-{dt}', hyperparams)
 
@@ -79,12 +79,6 @@ graphs_train = Graphs(
     hypervector_bits=args.hypervector_bits,
     double_hashing = args.double_hashing
 )
-
-draw_simple_graph(graphs_train, 1, './log/graph.png')
-show_graph_nodes(graphs_train, 1)
-show_graph_edges(graphs_train, 1)
-
-graphs_train.print_graph(1)
 
 Y_train = init_graph(
     graphs=graphs_train,
@@ -135,6 +129,9 @@ else:
     )
 
 
+print(f"Graph 0 train: {graphs_train.print_graph(0)}")
+print(f"Graph 0 test: {graphs_test.print_graph(0)}")
+
 for i in range(len(x_train)):
     log_result(training_log_folder, f'boards-train-{dt}', f'{i} Winner: {x_train[i]["winner"]}\n{board_as_string(x_train[i]["board"])}')
 
@@ -163,11 +160,14 @@ for i in range(args.epochs):
     else:
         tm.fit(graphs_train, Y_train)
 
-    result_train = 100 * (tm.predict(graphs_train) == Y_train).mean()
+    train_predictions = tm.predict(graphs_train)
+    test_predictions = tm.predict(graphs_test)
+
+    result_train = 100 * (train_predictions == Y_train).mean()
     stop_training = time()
 
     start_testing = time()
-    result_test = 100 * (tm.predict(graphs_test) == Y_test).mean()
+    result_test = 100 * (test_predictions == Y_test).mean()
     stop_testing = time()
 
     train_time = stop_training - start_training
@@ -176,6 +176,7 @@ for i in range(args.epochs):
     if result_train > best_train_result:
         best_train_result = result_train
     if result_test > best_test_result:
+        print("New best")
         best_test_result = result_test
     if train_time > highest_train_time:
         highest_train_time = train_time
@@ -184,16 +185,18 @@ for i in range(args.epochs):
 
     weights = tm.get_state()[1].reshape(2, -1)
 
+    print(f"Current best {best_test_result}%")
     print(f"Epoch {str(i)}: train result: {result_train}\n"
-          f"test result: {result_test}\n"
-          f"Weights: {weights}\n")
+          f"test result: {result_test}\n")
+          #f"Weights: {weights}")
           #f"{clauses_as_string(tm, weights, args.hypervector_size, args.message_size)}")
+    print(f"Score graph train 0: {tm.score(graphs_train)[0]}")
+    print(f"Score graph test 0: {tm.score(graphs_test)[0]}")
 
-    print("Weights[0]: " + str(sum(weights[0])))
-    print("Weights[1]: " + str(sum(weights[1])))
+    print(f"Train prediction: {train_predictions}.\nTrue value: {Y_train}\n\nTest prediction: {test_predictions}.\nTrue value: {Y_test}\n\n")
 
     log_data += "%d    %.2f    %.2f    %.2f    %.2f" % (i, result_train, result_test, train_time, test_time)
-    log_data += f"\n\nTrain prediction: {tm.predict(graphs_train)}.\nTrue value: {Y_train}\n\nTest prediction: {tm.predict(graphs_test)}.\nTrue value: {Y_test}\n"
+    log_data += f"\n\nTrain prediction: {train_predictions}.\nTrue value: {Y_train}\n\nTest prediction: {test_predictions}.\nTrue value: {Y_test}\n"
 
     if i % args.log_interval == 0:
         log_result(training_log_folder, f'train-{dt}', log_data)
@@ -205,10 +208,12 @@ total_end_time = time()
 
 plot(plot_x, plot_y, x_label='Epoch', y_label='Accuracy (%)', title='Accuracy Test Data', path=os.path.join(training_log_folder, 'plot.png'))
 
-if args.use_multigraph_tm:
-    weights = tm.get_state()[1].reshape(2, -1)
-    clauses = clauses_as_string(tm, weights, args.hypervector_size, args.message_size)
-    log_result(training_log_folder, f'clauses-{dt}', clauses)
+# Uncomment to log clauses. Uses alot of time
+# when using a lot of clauses
+#if args.use_multigraph_tm:
+#    weights = tm.get_state()[1].reshape(2, -1)
+#    clauses = clauses_as_string(tm, weights, args.hypervector_size, args.message_size)
+#    log_result(training_log_folder, f'clauses-{dt}', clauses)
 
 print(graphs_test.hypervectors)
 print(tm.hypervectors)
