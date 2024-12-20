@@ -3,15 +3,17 @@
 - Teste med lavere number_of_open_positions når man lager treningsdata
 - Teste med 1 trekk før spillet er ferdig
 - Teste med 2 trekk før spillet er ferdig
-- Teste med 3 trekk før spillet er ferdig
+- Teste med 5 trekk før spillet er ferdig
 - Leke med parametere
 - Gjøre start spiller random
 
 Current best parameters
-Alt standard untatt:
-Number of examples 254
+3x3 board:
+python train.py --number-of-examples=5000 --epochs=20 --log-interval=1 --T=300 --use-multigraph-tm=True --s=1.3 --number-of-clauses=50 --number-of-eval-examples=500 --max-included-literals=20 --moves-before-end=0
 
-Run training Kaggle: python make_training_data.py --data-format kaggle --split False --number-of-items 254
+Run training Kaggle: python make_training_data.py --data-format=kaggle --split=False --number-of-items=254
+
+Sjekke hva som er rart med edges som printes.
 
 Build docker compose
 docker-compose up
@@ -21,9 +23,6 @@ docker-compose run --rm tm sh
 ## GTM - Graph Tsetlin Machine
 
 # File purposes
-
-## generate_hex_games
-Probably to be deleted
 
 ## make_training_data
 Make training data based on three different methods:
